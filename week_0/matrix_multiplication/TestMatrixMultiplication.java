@@ -7,4 +7,3 @@ public class TestMatrixMultiplication {
         mat.displayResult();
     }
 
-}
