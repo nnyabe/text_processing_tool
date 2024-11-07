@@ -1,4 +1,3 @@
-package com.arrays;
 
 import java.awt.dnd.InvalidDnDOperationException;
 import java.util.Scanner;
