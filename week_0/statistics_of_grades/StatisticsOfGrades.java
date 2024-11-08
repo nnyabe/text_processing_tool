@@ -1,5 +1,3 @@
-package com.arrays;
-
 import java.awt.dnd.InvalidDnDOperationException;
 
 public class StatisticsOfGrades {
