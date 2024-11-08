@@ -1,5 +1,3 @@
-package com.arrays;
-
 public class PeakColumns {
     private int[][]matA = new int[][]{};
 
