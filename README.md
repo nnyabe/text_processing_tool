@@ -188,8 +188,8 @@ This repository uses a variety of technologies, tools, and libraries to build an
 
 Each weekly project might make use of different combinations of the technologies above. For example:
 
-- Week 1 might use just **Java** and **JUnit** for basic algorithm implementation.
-- Week 2 could introduce **JDBC** for database interaction.
+- Week 0-2 might use just **Java** and **JUnit** for basic algorithm implementation.
+- Week 1 could introduce **JDBC** for database interaction.
 - Later weeks may include **Spring Boot** for web development, **Apache Commons** for utility methods, and **JUnit** for testing.
 
 Each individual project within the `weeks` directory will have a `README.md` file detailing the specific technologies used for that week's assignment.
