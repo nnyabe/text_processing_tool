@@ -1,11 +1,13 @@
-package com.arrays;
+package week_0.peak_columns;
 
 public class TestPeakColumns {
     public static void main(String[] args) {
-        int [][] arr = {{12,  2,  4},
-            {17, 10,  1},
-            {92, 80, 79}};
-        PeakColumns peak = new PeakColumns(arr);
-        peak.findPeak();
+        int [][] arr = {
+                {3, 5, 6, 7, 7 },
+                {4, 2, 2, 8, 9},
+                {6, 3, 2, 9, 7 }
+        };
+       PeakColumns peak = new PeakColumns(arr);
+       peak.findPeak();
     }
 }
