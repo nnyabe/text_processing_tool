@@ -1,4 +1,5 @@
-package com.arrays;
+package week_0.statistics_of_grades;
+import week_0.statistics_of_grades.StatisticsOfGrades;
 
 public class TestStatisticsOfGrades {
     public static void main(String[] args) {
