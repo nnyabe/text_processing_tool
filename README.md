@@ -54,6 +54,7 @@ Each individual project within the `weeks` directory contains its own setup and 
     ```bash
       cd labs/week_0/
    ```
+   
 ### Prerequisites
 
 - **Java Development Kit (JDK)**: Version 11 or later is recommended.
