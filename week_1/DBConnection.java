@@ -1,26 +1,34 @@
 package week_1;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
+import java.sql.SQLException;
 
 public class DBConnection {
 
-    private static final String db_url = "jdbc:mysql://localhost:3306/";
+    private static final String db_url = "jdbc:sql://localhost:3306/";
     private static final String User = "chamamme";
     private static final String Pass = "1Am@Kr0fr0m$$";
 
-    public static void main(String[] args) {
-       if(connect() != null){
-           System.out.println("We are connected:");
-       }
+    private static Connection connection;
+    public static Connection connectDB(){
+        try{
+            connection = DriverManager.getConnection(db_url, User, Pass);
+            return connection;
+        }catch (SQLException e){
+            System.out.println("Couldn't connect to database :" + e.getMessage());
+            return null;
+        }
     }
 
-    public static Connection connect(){
+    public void closeConnection(){
         try{
-            return DriverManager.getConnection(db_url, User, Pass);
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
+            if(connection != null){
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Couldn't close connection: " + e.getMessage());
+//            throw new RuntimeException(e);
         }
     }
 }
