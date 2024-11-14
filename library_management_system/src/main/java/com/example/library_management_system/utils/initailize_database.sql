@@ -56,9 +56,9 @@ CREATE TABLE magazines (
 DROP TABLE IF EXISTS transactions;
 CREATE TABLE IF NOT EXISTS transactions (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    order_date DATE NOT NULL,
-    approved_date DATE,
-    return_date DATE,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    approved_date TIMESTAMP,
+    return_date TIMESTAMP,
     status ENUM('PENDING', 'APPROVED', 'RETURNED', 'REJECTED') NOT NULL,
     approved_by VARCHAR(50),
     ordered_by VARCHAR(50),
