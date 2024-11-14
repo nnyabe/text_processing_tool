@@ -5,12 +5,21 @@ import java.util.Date;
 
 public class AdminModel extends UserModel{
     private Enums.Roles role;
+    private String password;
 
     public AdminModel(int id, String username, String email, Date created_at, Date updated_at,
-                      Enums.Roles role) {
+                      Enums.Roles role, String password) {
         super(id, username, email, created_at, updated_at);
-
+        this.password = password;
         this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Enums.Roles getRole() {

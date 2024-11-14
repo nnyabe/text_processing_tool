@@ -1,14 +1,24 @@
 package com.example.library_management_system.modles;
 
+import java.util.Date;
+
 public class BookModel extends ResourcesModel {
     private String author;
     private String isbn;
     private int edition;
 
-    public BookModel(int id, boolean availalbeState, String title,
+
+    public BookModel( boolean availableState, String title,
                      String publisher, int totalCopies, int copiesLeft,
-                     String author, String isbn, int edition) {
-        super(id, availalbeState, title, publisher, totalCopies, copiesLeft);
+                     String author, String isbn, int edition){
+        this(0, availableState, title, publisher, totalCopies, copiesLeft,
+                author, isbn, edition, new Date(), new Date());
+
+    }
+    public BookModel(int id, boolean availableState, String title,
+                     String publisher, int totalCopies, int copiesLeft,
+                     String author, String isbn, int edition, Date createdAt, Date updatedAt) {
+        super(id, availableState, title, publisher, totalCopies, copiesLeft, createdAt, updatedAt);
         this.author = author;
         this.isbn = isbn;
         this.edition = edition;
@@ -38,5 +48,10 @@ public class BookModel extends ResourcesModel {
         this.edition = edition;
     }
 
-
+    @Override
+    public String toString() {
+        return super.toString() + ", author = " + author
+                + ", isbn = " + isbn
+                + ", edition = " + edition + " }\n";
+    }
 }

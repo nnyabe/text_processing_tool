@@ -8,11 +8,12 @@ import java.sql.*;
 
 public class DBConnection {
 
-    private final static String dbUrl = "jdbc:mysql://localhost:3306/";
+    private final static String dbUrl = "jdbc:mysql://localhost:3306/library";
     private final static String user = "chamamme";
     private final static String passWord = "1Am@Kr0fr0m$$";
     public static Connection createConnection() throws MySQLConnectionException {
-        try(Connection connection = DriverManager.getConnection(dbUrl, user, passWord);){
+        try{
+            Connection connection = DriverManager.getConnection(dbUrl, user, passWord);
             System.out.println("Connected to the database successfully!");
             return connection;
         }
