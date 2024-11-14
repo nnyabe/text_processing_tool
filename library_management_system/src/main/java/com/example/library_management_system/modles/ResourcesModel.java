@@ -13,7 +13,7 @@ public abstract class ResourcesModel {
     private Date updatedAt;
 
     public ResourcesModel( boolean availableState, String title, String publisher, int totalCopies,
-                          int copiesLeft) {
+                          int copiesLeft, String resourceType) {
         this(0, availableState, title, publisher, totalCopies, copiesLeft, new Date(), new Date());
 
     }

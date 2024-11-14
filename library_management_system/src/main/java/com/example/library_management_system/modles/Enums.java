@@ -5,6 +5,6 @@ public class Enums {
         LIBRARIAN, ADMIN, MANAGER;
     }
     public enum Stautus {
-        TURNEDIN, WAITING, APPROVED
+        PENDING, APPROVED, RETURNED
     }
 }
