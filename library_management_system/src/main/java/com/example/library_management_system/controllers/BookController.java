@@ -1,104 +1,46 @@
-package com.example.library_management_system.controllers;
+package com.example.library.controllers;
 
 
-import com.example.library_management_system.exceptions.MySQLConnectionException;
-import com.example.library_management_system.modles.BookModel;
-import com.example.library_management_system.utils.DBConnection;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import com.example.library.modles.BookModel;
 
-public class BookController {
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+public class BookController extends BaseModelController<BookModel> {
 
-    public List<BookModel> getAllBooks() throws SQLException{
-        List<BookModel> books = new ArrayList<>();
-        String query = "SELECT * FROM books";
+    // Implement the abstract method to map the ResultSet to a BookModel
+    @Override
+    protected BookModel mapRowToModel(ResultSet resultSet) throws SQLException {
+        int id = resultSet.getInt("id");
+        String title = resultSet.getString("title");
+        String author = resultSet.getString("author");
+        String isbn = resultSet.getString("isbn");
+        int categoryId = resultSet.getInt("categoryId");
+        boolean availabilityStatus = resultSet.getBoolean("availabilityStatus");
 
-        try(Connection connection = DBConnection.createConnection();
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(query);){
-
-
-            while(result.next()){
-                int book_id = result.getInt("_id");
-                String title = result.getNString("title");
-                String author = result.getNString("author");
-                String isbn = result.getNString("isbn");
-                int categoryId = result.getInt("categoryId");
-                boolean availabilityStatus = result.getBoolean("availabilityStatus");
-
-                BookModel newBook = new BookModel();
-                books.add(newBook);
-            }
-        } catch (MySQLConnectionException e) {
-            throw new RuntimeException(e);
-        }
-        return books;
+        return new BookModel(id, title, author, isbn, categoryId, availabilityStatus);
     }
 
-//    public BookModel getBookById(int book_id) throws SQLException{
-//        String query = "SELECT * FROM books WHERE _id = ?";
-//
-//        BookModel newBook = null;
-//        try(Connection connection = DBConnection.connectDB();
-//            PreparedStatement preparedstatement = connection.prepareStatement(query)){
-//
-//            preparedstatement.setInt(1, book_id);
-//            try(ResultSet result = preparedstatement.executeQuery()){
-//                if(result.next()){
-//                    String title = result.getString("title");
-//                    String author = result.getString("author");
-//                    String isbn = result.getString("isbn");
-//                    int categoryId = result.getInt("categoryId");
-//                    boolean availabilityStatus = result.getBoolean("availabilityStatus");
-//
-//                    newBook = new BookModel(book_id, title, author,
-//                            isbn, categoryId, availabilityStatus);
-//                }
-//            }
-//            catch(SQLException e) {
-//                System.out.println("Couldn't find Book by Id:" + e.getMessage());
-//
-//            }
-//
-//
-//        }
-//
-//        return newBook;
-//    }
-//
-//    public boolean deleteBookById(int book_id) throws SQLException {
-//        String query = "DELETE FROM books WHERE _id = ?";
-//        int rowsAffected = 0;
-//
-//        try (Connection connection = DBConnection.connectDB();
-//             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-//
-//            preparedStatement.setInt(1, book_id);
-//            rowsAffected = preparedStatement.executeUpdate();
-//        }
-//
-//        return rowsAffected > 0;
-//    }
-//
-//    public boolean updateBookById(BookModel book) throws SQLException {
-//        String query = "UPDATE books SET title = ?, author = ?, isbn = ?, categoryId = ?, availabilityStatus = ? WHERE _id = ?";
-//        int rowsAffected = 0;
-//
-//        try (Connection connection = DBConnection.connectDB();
-//             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-//
-//            preparedStatement.setString(1, book.getTitle());
-//            preparedStatement.setString(2, book.getAuthor());
-//            preparedStatement.setString(3, book.getIsbn());
-//            preparedStatement.setInt(4, book.getCategoryId());
-//            preparedStatement.setBoolean(5, book.isAvailabilityStatus());
-//            preparedStatement.setInt(6, book.getBookId());
-//
-//            rowsAffected = preparedStatement.executeUpdate();
-//        }
-//
-//        return rowsAffected > 0;
-//    }
+    // Implement the method to return the table name
+    @Override
+    protected String getTableName() {
+        return "books";
+    }
 
+    // Implement the method to get the query for updating a book
+    @Override
+    protected String getUpdateQuery() {
+        return "UPDATE books SET title = ?, author = ?, isbn = ?, categoryId = ?, availabilityStatus = ? WHERE id = ?";
+    }
+
+    // Implement the method to set the update parameters for the prepared statement
+    @Override
+    protected void setUpdateParameters(PreparedStatement preparedStatement, BookModel book) throws SQLException {
+        preparedStatement.setString(1, book.getTitle());
+        preparedStatement.setString(2, book.getAuthor());
+        preparedStatement.setString(3, book.getIsbn());
+//        preparedStatement.setInt(4, book.getCategoryId());
+//        preparedStatement.setBoolean(5, book.isAvailabilityStatus());
+        preparedStatement.setInt(6, book.getId());
+    }
 }
