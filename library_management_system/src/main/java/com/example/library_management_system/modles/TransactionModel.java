@@ -1,7 +1,6 @@
 package com.example.library_management_system.modles;
 
-import java.util.Date;
-
+import java.sql.Date;
 public class TransactionModel {
 
     private int id;
@@ -14,7 +13,7 @@ public class TransactionModel {
     private int resourceId;
 
 
-    public TransactionModel(int id, Date orderDate, Date approvedDate,
+    public TransactionModel(int id,Date orderDate, Date approvedDate,
                             Date returnDate, Enums.Stautus status,
                             String approvedBy, String orderedBy, int resourceId) {
         this.id = id;
