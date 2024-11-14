@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS transactions (
     status ENUM('PENDING', 'APPROVED', 'RETURNED', 'REJECTED') NOT NULL,
     approved_by VARCHAR(50),
     ordered_by VARCHAR(50),
+    resource_type VARCHAR(20),
     resource_id int
 );
 

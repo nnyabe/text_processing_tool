@@ -1,11 +1,7 @@
 package com.example.library_management_system.controllers;
 
-import com.example.library_management_system.exceptions.InvalidRoleExeption;
-import com.example.library_management_system.modles.AdminModel;
 import com.example.library_management_system.modles.Enums;
-import com.example.library_management_system.modles.PatronModel;
 import com.example.library_management_system.modles.TransactionModel;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,8 +19,9 @@ public class TransactionController extends BaseModelController<TransactionModel>
         String approvedBy = resultSet.getString("approved_by");
         String orderedBy = resultSet.getString("ordered_by");
         int resourceId = resultSet.getInt("resource_id");
+        String resourceType = resultSet.getString("resource_type");
         Enums.Stautus status = Enums.Stautus.valueOf(resultSet.getString("status"));
-        return new TransactionModel(id, orderDate, approveDate, returnDate, status,approvedBy, orderedBy,resourceId );
+        return new TransactionModel(id, orderDate, approveDate, returnDate, status,approvedBy, orderedBy,resourceId , resourceType);
     }
 
     @Override
@@ -42,8 +39,8 @@ public class TransactionController extends BaseModelController<TransactionModel>
     @Override
     protected String getCreateQuery(){
         return "INSERT INTO transactions (approved_date, return_date, status, " +
-                "approved_by, ordered_by, resource_id)" +
-                " VALUES ( ?, ?, ?, ?, ?, ?)";
+                "approved_by, ordered_by, resource_id, resource_type)" +
+                " VALUES ( ?, ?, ?, ?, ?, ?,?)";
     }
 
     @Override
@@ -68,6 +65,7 @@ public class TransactionController extends BaseModelController<TransactionModel>
         preparedStatement.setString(4, transactions.getApprovedBy());
         preparedStatement.setString(5, transactions.getOrderedBy());
         preparedStatement.setInt(6, transactions.getResourceId());
+        preparedStatement.setString(7, transactions.getResourceType());
 
     }
 
@@ -94,6 +92,14 @@ public class TransactionController extends BaseModelController<TransactionModel>
     @Override
     public boolean updateById(TransactionModel transaction) throws SQLException{
         return super.updateById(transaction);
+    }
+
+    public boolean approveTransaction(TransactionModel transaction, String adminEmail){
+
+        TransactionController transact = new TransactionController();
+//        transact.updateById(transaction)
+
+        return true;
     }
 
 }

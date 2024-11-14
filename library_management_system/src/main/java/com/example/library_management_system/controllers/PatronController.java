@@ -1,9 +1,7 @@
 package com.example.library_management_system.controllers;
 
-import com.example.library_management_system.modles.Enums;
-import com.example.library_management_system.modles.PatronModel;
-import com.example.library_management_system.modles.TransactionModel;
 
+import com.example.library_management_system.modles.PatronModel;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -11,11 +11,16 @@ public class TransactionModel {
     private String approvedBy;
     private String orderedBy;
     private int resourceId;
+    private String resourceType;
 
+    public TransactionModel(String orderedBy, int resourceId, String resourceType){
+        this(0, null, null, null, Enums.Stautus.PENDING, null,
+                orderedBy, resourceId, resourceType );
+    }
 
     public TransactionModel(int id,Date orderDate, Date approvedDate,
                             Date returnDate, Enums.Stautus status,
-                            String approvedBy, String orderedBy, int resourceId) {
+                            String approvedBy, String orderedBy, int resourceId, String resourceType) {
         this.id = id;
         this.orderDate = orderDate;
         this.approvedDate = approvedDate;
@@ -24,6 +29,7 @@ public class TransactionModel {
         this.approvedBy = approvedBy;
         this.orderedBy = orderedBy;
         this.resourceId = resourceId;
+        this.resourceType = resourceType;
     }
 
     public int getId() {
@@ -88,6 +94,14 @@ public class TransactionModel {
 
     public void setResourceId(int resourceId) {
         this.resourceId = resourceId;
+    }
+
+    public String getResourceType() {
+        return resourceType;
+    }
+
+    public void setResourceType(String resourceType) {
+        this.resourceType = resourceType;
     }
 
     @Override
