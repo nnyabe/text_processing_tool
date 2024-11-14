@@ -89,4 +89,18 @@ public class TransactionModel {
     public void setResourceId(int resourceId) {
         this.resourceId = resourceId;
     }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", orderDate=" + orderDate +
+                ", approvedDate=" + approvedDate +
+                ", returnDate=" + returnDate +
+                ", status=" + status +
+                ", approvedBy='" + approvedBy + '\'' +
+                ", orderedBy='" + orderedBy + '\'' +
+                ", resourceId=" + resourceId +
+                '}';
+    }
 }

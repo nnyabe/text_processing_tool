@@ -23,7 +23,7 @@ public class PatronController extends BaseModelController<PatronModel>{
 
     @Override
     protected String getTableName(){
-        return "magazine";
+        return "patrons";
     }
 
     @Override

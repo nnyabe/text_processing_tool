@@ -1,6 +1,9 @@
 package com.example.library_management_system.controllers;
 
+import com.example.library_management_system.exceptions.InvalidRoleExeption;
+import com.example.library_management_system.modles.AdminModel;
 import com.example.library_management_system.modles.Enums;
+import com.example.library_management_system.modles.PatronModel;
 import com.example.library_management_system.modles.TransactionModel;
 
 import java.sql.PreparedStatement;
@@ -26,7 +29,7 @@ public class TransactionController extends BaseModelController<TransactionModel>
 
     @Override
     protected String getTableName(){
-        return "magazine";
+        return "transactions";
     }
 
     @Override
@@ -92,6 +95,5 @@ public class TransactionController extends BaseModelController<TransactionModel>
     public boolean updateById(TransactionModel transaction) throws SQLException{
         return super.updateById(transaction);
     }
-
 
 }
