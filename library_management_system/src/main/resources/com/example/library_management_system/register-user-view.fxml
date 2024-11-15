@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="register_background" fx:id="register_background" prefHeight="469.0" prefWidth="769.0"
+            style="-fx-background-color: linear-gradient(to bottom right, #EBEAFF, #1A1A1D); "
+            xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.library.views.RegisterUserView">
+    <VBox alignment="CENTER" layoutX="220.0" layoutY="80.0" spacing="15" style="-fx-background-color: #E5D9F2; -fx-background-radius: 10; -fx-padding: 30; -fx-pref-width: 300;">
+
+        <!-- Title Label -->
+        <Label style="-fx-font-size: 24; -fx-text-fill: #3D3BF3; -fx-font-weight: bold;" text="Register" />
+
+        <!-- Username Field -->
+        <TextField fx:id="usernameField" promptText="Username" style="-fx-background-color: #CDC1FF; -fx-border-color: #3D3BF3; -fx-border-radius: 5; -fx-background-radius: 5; -fx-pref-width: 250; -fx-text-fill: #1A1A1D; -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);" />
+
+        <!-- Email Field -->
+        <TextField fx:id="emailField" promptText="Email" style="-fx-background-color: #CDC1FF; -fx-border-color: #3D3BF3; -fx-border-radius: 5; -fx-background-radius: 5; -fx-pref-width: 250; -fx-text-fill: #1A1A1D; -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);" />
+
+        <!-- Password Field -->
+        <PasswordField fx:id="passwordField" promptText="Password" style="-fx-background-color: #CDC1FF; -fx-border-color: #3D3BF3; -fx-border-radius: 5; -fx-background-radius: 5; -fx-pref-width: 250; -fx-text-fill: #1A1A1D; -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);" />
+
+        <!-- Error Message Label (Hidden by Default) -->
+        <Label fx:id="errorMessageLabel" style="-fx-text-fill: #FF3B3B; -fx-font-size: 12; -fx-font-weight: bold; -fx-opacity: 0;" text="Invalid input! Please check your details." />
+
+        <!-- Register Button -->
+        <Button fx:id="createAccountButton" onAction="#handleRegister" style="-fx-background-color: #3D3BF3; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 5; -fx-pref-width: 150;" text="Create Account" />
+
+    </VBox>
+</AnchorPane>
