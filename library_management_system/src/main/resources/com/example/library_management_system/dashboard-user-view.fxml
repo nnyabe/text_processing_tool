@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.library.views.UserDashboardView"
+            prefHeight="400.0" prefWidth="600.0"
+            style="-fx-background-color: linear-gradient(to bottom right, #EBEAFF, #1A1A1D);">
+
+    <VBox fx:id="sidebar" prefWidth="30" alignment="CENTER" spacing="20"
+          style="-fx-background-color: #3D3BF3; -fx-padding: 20;">
+
+        <!-- Sidebar Title -->
+        <Label text="Dashboard" style="-fx-font-size: 20px; -fx-text-fill: #E5D9F2; -fx-font-weight: bold;" />
+
+        <!-- Navigation Links -->
+        <Button text="Books" onAction="#showBooks"
+                style="-fx-background-color: #9694FF; -fx-text-fill: #FFFFFF; -fx-font-size: 14px; -fx-background-radius: 5; -fx-pref-width: 150;" />
+
+        <Button text="Magazines" onAction="#showMagazines"
+                style="-fx-background-color: #9694FF; -fx-text-fill: #FFFFFF; -fx-font-size: 14px; -fx-background-radius: 5; -fx-pref-width: 150;" />
+
+        <Button text="Transactions" onAction="#showTransactions"
+                style="-fx-background-color: #9694FF; -fx-text-fill: #FFFFFF; -fx-font-size: 14px; -fx-background-radius: 5; -fx-pref-width: 150;" />
+
+    </VBox>
+
+    <!-- Main Content Area -->
+    <AnchorPane fx:id="contentArea" prefWidth="70" style="-fx-padding: 20;">
+        <!-- Content will dynamically display here -->
+        <Label fx:id="contentLabel" text="Select an option to view details"
+               style="-fx-font-size: 16px; -fx-text-fill: #1A1A1D;" />
+    </AnchorPane>
+</BorderPane>
