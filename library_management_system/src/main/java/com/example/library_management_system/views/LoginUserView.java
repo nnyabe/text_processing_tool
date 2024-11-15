@@ -1,4 +1,4 @@
-package com.example.library.views;
+package com.example.library_management_system.views;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -6,10 +6,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class LoginUserView {
-    public AnchorPane login_background;
+    @FXML
+    private VBox login_background;
     @FXML
     private TextField usernameField;
     @FXML

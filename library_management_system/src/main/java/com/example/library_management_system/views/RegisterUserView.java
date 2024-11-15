@@ -1,4 +1,4 @@
-package com.example.library.views;
+package com.example.library_management_system.views;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;

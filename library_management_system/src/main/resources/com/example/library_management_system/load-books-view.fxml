@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="486.0" prefWidth="947.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.library_management_system.views.LoadBooksView">
+    <TableView fx:id="bookTableView" layoutX="20" layoutY="20" prefHeight="458.0" prefWidth="936.0">
+        <columns>
+
+            <TableColumn fx:id="titleColumn" prefWidth="150" text="Title">
+                <cellValueFactory>
+                    <PropertyValueFactory property="title" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="authorColumn" prefWidth="150" text="Author">
+                <cellValueFactory>
+                    <PropertyValueFactory property="author" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="publisherColumn" prefWidth="150" text="Publisher">
+                <cellValueFactory>
+                    <PropertyValueFactory property="publisher" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="totalCopiesColumn" text="Total Copies">
+                <cellValueFactory>
+                    <PropertyValueFactory property="totalCopies" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="copiesLeftColumn" prefWidth="100" text="Copies Left">
+                <cellValueFactory>
+                    <PropertyValueFactory property="copiesLeft" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="availableStateColumn" prefWidth="75" text="Available">
+                <cellValueFactory>
+                    <PropertyValueFactory property="availableState" />
+                </cellValueFactory>
+            </TableColumn>
+
+            <TableColumn fx:id="isbnColumn" prefWidth="150" text="ISBN">
+                <cellValueFactory>
+                    <PropertyValueFactory property="isbn" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="editionColumn" prefWidth="75" text="Edition">
+                <cellValueFactory>
+                    <PropertyValueFactory property="edition" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+</AnchorPane>

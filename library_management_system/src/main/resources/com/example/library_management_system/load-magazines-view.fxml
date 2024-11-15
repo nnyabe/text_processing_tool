@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="709.0" prefWidth="1155.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.library_management_system.views.LoadMagazinesView">
+    <TableView fx:id="magazineTableView" layoutX="20" layoutY="73.0" prefHeight="482.0" prefWidth="936.0">
+        <columns>
+            <TableColumn fx:id="titleColumn" prefWidth="150" text="Title">
+                <cellValueFactory>
+                    <PropertyValueFactory property="title" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="editorColumn" prefWidth="150" text="Editor">
+                <cellValueFactory>
+                    <PropertyValueFactory property="editor" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="publisherColumn" prefWidth="150" text="Publisher">
+                <cellValueFactory>
+                    <PropertyValueFactory property="publisher" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="totalCopiesColumn" text="Total Copies">
+                <cellValueFactory>
+                    <PropertyValueFactory property="totalCopies" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="copiesLeftColumn" prefWidth="100" text="Copies Left">
+                <cellValueFactory>
+                    <PropertyValueFactory property="copiesLeft" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="availableStateColumn" prefWidth="75" text="Available">
+                <cellValueFactory>
+                    <PropertyValueFactory property="availableState" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="issnColumn" prefWidth="150" text="ISSN">
+                <cellValueFactory>
+                    <PropertyValueFactory property="issn" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="volumeColumn" prefWidth="75" text="Volume">
+                <cellValueFactory>
+                    <PropertyValueFactory property="volume" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+</AnchorPane>

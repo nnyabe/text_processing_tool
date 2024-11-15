@@ -1,39 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.library.views.UserDashboardView"
-            prefHeight="400.0" prefWidth="600.0"
-            style="-fx-background-color: linear-gradient(to bottom right, #EBEAFF, #1A1A1D);">
+<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="646.0" spacing="10.0" style="-fx-border-radius: 10 10 10 10; -fx-background-color: #F5F7FB; -fx-background-radius: 10 10 10 10;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+fx:controller="com.example.library_management_system.views.UserDashboardView">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="458.0" prefWidth="139.0" spacing="14.0" style="-fx-background-color: #fff; -fx-background-radius: 0 10 10 0;">
+         <children>
+             <Button fx:id="booksButton" mnemonicParsing="false" style="-fx-background-color: #3D3BF3;
+                            -fx-text-fill: white;
+                            -fx-font-size: 16;
+                            -fx-background-radius: 5;
+                            -fx-pref-width: 150;
+                            -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 2, 2);"
+                     text="Books">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></Button>
+            <Button fx:id="magazinesButton" layoutX="18.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: #3D3BF3;                -fx-text-fill: white;                -fx-font-size: 16;                -fx-background-radius: 5;                -fx-pref-width: 150;                -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 2, 2);" text="Magazines">
+               <padding>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </padding>
+            </Button>
+            <Button fx:id="reservationButton" layoutX="18.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: #3D3BF3;                -fx-text-fill: white;                -fx-font-size: 16;                -fx-background-radius: 5;                -fx-pref-width: 150;                -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 2, 2);" text="Reservation">
+               <padding>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </padding>
+            </Button>
+            <Button fx:id="borrowButton" layoutX="18.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: #3D3BF3;                -fx-text-fill: white;                -fx-font-size: 16;                -fx-background-radius: 5;                -fx-pref-width: 150;                -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 2, 2);" text="Borrow">
+               <padding>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </padding>
+            </Button>
+            <Button fx:id="logsButton" layoutX="18.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: #3D3BF3;                -fx-text-fill: white;                -fx-font-size: 16;                -fx-background-radius: 5;                -fx-pref-width: 150;                -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 2, 2);" text="Logs">
+               <padding>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </padding>
+            </Button>
+            <Button fx:id="logOutButton" layoutX="18.0" layoutY="242.0" mnemonicParsing="false" style="-fx-background-color: #3D3BF3;                        -fx-text-fill: white;                -fx-font-size: 16;                -fx-background-radius: 5;                -fx-pref-width: 150;                -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 2, 2);" text="Log Out">
+               <padding>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="100.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="40.0" />
+         </padding>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </VBox>
+      <FlowPane fx:id="flowPaneForContent" alignment="CENTER" prefHeight="458.0" prefWidth="517.0" >
+          <children>
 
-    <VBox fx:id="sidebar" prefWidth="30" alignment="CENTER" spacing="20"
-          style="-fx-background-color: #3D3BF3; -fx-padding: 20;">
-
-        <!-- Sidebar Title -->
-        <Label text="Dashboard" style="-fx-font-size: 20px; -fx-text-fill: #E5D9F2; -fx-font-weight: bold;" />
-
-        <!-- Navigation Links -->
-        <Button text="Books" onAction="#showBooks"
-                style="-fx-background-color: #9694FF; -fx-text-fill: #FFFFFF; -fx-font-size: 14px; -fx-background-radius: 5; -fx-pref-width: 150;" />
-
-        <Button text="Magazines" onAction="#showMagazines"
-                style="-fx-background-color: #9694FF; -fx-text-fill: #FFFFFF; -fx-font-size: 14px; -fx-background-radius: 5; -fx-pref-width: 150;" />
-
-        <Button text="Transactions" onAction="#showTransactions"
-                style="-fx-background-color: #9694FF; -fx-text-fill: #FFFFFF; -fx-font-size: 14px; -fx-background-radius: 5; -fx-pref-width: 150;" />
-
-    </VBox>
-
-    <!-- Main Content Area -->
-    <AnchorPane fx:id="contentArea" prefWidth="70" style="-fx-padding: 20;">
-        <!-- Content will dynamically display here -->
-        <Label fx:id="contentLabel" text="Select an option to view details"
-               style="-fx-font-size: 16px; -fx-text-fill: #1A1A1D;" />
-    </AnchorPane>
-</BorderPane>
+          </children>
+      </FlowPane>
+   </children>
+</HBox>
