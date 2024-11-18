@@ -1,11 +1,13 @@
 package com.example.library_management_system.controllers;
 
+import com.example.library_management_system.exceptions.MySQLConnectionException;
 import com.example.library_management_system.modles.Enums;
 import com.example.library_management_system.modles.TransactionModel;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Date;
+import com.example.library_management_system.utils.DBConnection;
+import javafx.scene.control.Alert;
+
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionController extends BaseModelController<TransactionModel>{
@@ -21,7 +23,8 @@ public class TransactionController extends BaseModelController<TransactionModel>
         int resourceId = resultSet.getInt("resource_id");
         String resourceType = resultSet.getString("resource_type");
         Enums.Stautus status = Enums.Stautus.valueOf(resultSet.getString("status"));
-        return new TransactionModel(id, orderDate, approveDate, returnDate, status,approvedBy, orderedBy,resourceId , resourceType);
+        Enums.Types transactionType = Enums.Types.valueOf(resultSet.getString("transaction_type"));
+        return new TransactionModel(id, orderDate, approveDate, returnDate, status,approvedBy, orderedBy,resourceId , resourceType, transactionType);
     }
 
     @Override
@@ -39,8 +42,8 @@ public class TransactionController extends BaseModelController<TransactionModel>
     @Override
     protected String getCreateQuery(){
         return "INSERT INTO transactions (approved_date, return_date, status, " +
-                "approved_by, ordered_by, resource_id, resource_type)" +
-                " VALUES ( ?, ?, ?, ?, ?, ?,?)";
+                "approved_by, ordered_by, resource_id, resource_type, transaction_type)" +
+                " VALUES ( ?, ?, ?, ?, ?, ?,?, ?)";
     }
 
     @Override
@@ -66,6 +69,7 @@ public class TransactionController extends BaseModelController<TransactionModel>
         preparedStatement.setString(5, transactions.getOrderedBy());
         preparedStatement.setInt(6, transactions.getResourceId());
         preparedStatement.setString(7, transactions.getResourceType());
+        preparedStatement.setString(8, transactions.getTransactionType().toString());
 
     }
 
@@ -94,12 +98,101 @@ public class TransactionController extends BaseModelController<TransactionModel>
         return super.updateById(transaction);
     }
 
-    public boolean approveTransaction(TransactionModel transaction, String adminEmail){
+    public List<TransactionModel> getUserTransactions(String username) throws SQLException {
+        String query = "SELECT * FROM transactions WHERE ordered_by = ?";
+        List<TransactionModel> transactions = new ArrayList<>();
 
-        TransactionController transact = new TransactionController();
-//        transact.updateById(transaction)
+        try (Connection connection = DBConnection.createConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-        return true;
+            preparedStatement.setString(1, username);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    transactions.add(mapRowToModel(resultSet));
+                }
+            }
+        } catch (MySQLConnectionException e) {
+            throw new RuntimeException(e);
+        }
+
+        return transactions;
+    }
+
+    public void approveTransaction(int transactionId, String librarianName) throws SQLException {
+        String query = "UPDATE transactions SET status = 'APPROVED', approved_date = CURRENT_TIMESTAMP, approved_by = ? " +
+                "WHERE id = ? AND status = 'PENDING'";
+
+        executeUpdate(query, preparedStatement -> {
+                    preparedStatement.setString(1, librarianName);
+                    preparedStatement.setInt(2, transactionId);
+                }, "Transaction Approved", "The transaction has been successfully approved.",
+                "Approval Failed", "The transaction could not be approved or is not in a pending state.");
+    }
+
+
+    public void returnResource(int transactionId) throws SQLException {
+        String query = "UPDATE transactions SET status = 'RETURNED', return_date = CURRENT_TIMESTAMP " +
+                "WHERE id = ? AND status = 'APPROVED'";
+
+        executeUpdate(query, ps -> ps.setInt(1, transactionId),
+                "Return Successful", "The resource has been successfully returned.",
+                "Return Failed", "The resource could not be returned or is not approved.");
+    }
+
+
+    public void borrowResource(String orderedBy, int resourceId, String resourceType) throws SQLException {
+        String query = "INSERT INTO transactions (ordered_by, resource_id, resource_type, transaction_type, status) " +
+                "VALUES (?, ?, ?, 'BORROW', 'PENDING')";
+
+        executeUpdate(query, preparedStatement -> {
+                    preparedStatement.setString(1, orderedBy);
+                    preparedStatement.setInt(2, resourceId);
+                    preparedStatement.setString(3, resourceType);
+                }, "Borrow Request Successful", "The borrow request has been submitted.",
+                "Borrow Request Failed", "An error occurred while processing the borrow request.");
+    }
+
+    public void reserveResource(String orderedBy, int resourceId, String resourceType) throws SQLException {
+        String query = "INSERT INTO transactions (ordered_by, resource_id, resource_type, transaction_type, status) " +
+                "VALUES (?, ?, ?, 'RESERVATION', 'PENDING')";
+
+        executeUpdate(query, preparedStatement -> {
+                    preparedStatement.setString(1, orderedBy);
+                    preparedStatement.setInt(2, resourceId);
+                    preparedStatement.setString(3, resourceType);
+                }, "Reservation Successful", "The resource has been reserved.",
+                "Reservation Failed", "An error occurred while reserving the resource.");
+    }
+
+
+    private void executeUpdate(String query, SQLConsumer<PreparedStatement> parameterSetter,
+                               String successTitle, String successMessage,
+                               String failureTitle, String failureMessage) throws SQLException {
+        try (Connection connection = DBConnection.createConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            parameterSetter.accept(preparedStatement);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                showAlert(Alert.AlertType.INFORMATION, successTitle, successMessage);
+            } else {
+                showAlert(Alert.AlertType.WARNING, failureTitle, failureMessage);
+            }
+
+        }catch (MySQLConnectionException e) {
+            throw new SQLException("Error fetching data: " + e.getMessage());
+        }
+    }
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+    @FunctionalInterface
+    interface SQLConsumer<T> {
+        void accept(T t) throws SQLException;
     }
 
 }

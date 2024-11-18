@@ -17,16 +17,20 @@
         <Label fx:id="errorMessageLabel" style="-fx-text-fill: #FF3B3B; -fx-font-size: 12; -fx-font-weight: bold; -fx-opacity: 0;" text="Invalid input! Please check your credentials." />
 
         <Button fx:id="loginButton" onAction="#handleLogin" style="-fx-background-color: #3D3BF3; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 5; -fx-pref-width: 150;" text="Login" />
-      <effect>
-         <DropShadow height="41.76" offsetX="2.0" radius="18.835" spread="0.08" width="35.58">
-            <color>
-               <Color red="0.3815789520740509" green="0.36214667558670044" blue="0.36214667558670044" />
-            </color>
-         </DropShadow>
-      </effect>
+
+        <!-- Register button to navigate to the registration page -->
+        <Button fx:id="registerButton" onAction="#handleRegisterRedirect" style="-fx-background-color: #CDC1FF; -fx-text-fill: #3D3BF3; -fx-font-size: 14; -fx-background-radius: 5; -fx-pref-width: 150;" text="Don't have an account? Register" />
+
+        <effect>
+            <DropShadow height="41.76" offsetX="2.0" radius="18.835" spread="0.08" width="35.58">
+                <color>
+                    <Color red="0.3815789520740509" green="0.36214667558670044" blue="0.36214667558670044" />
+                </color>
+            </DropShadow>
+        </effect>
 
     </VBox>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
 </VBox>

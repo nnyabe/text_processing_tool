@@ -7,4 +7,8 @@ public class Enums {
     public enum Stautus {
         PENDING, APPROVED, RETURNED
     }
+
+    public enum Types {
+        BORROW, RESERVE
+    }
 }

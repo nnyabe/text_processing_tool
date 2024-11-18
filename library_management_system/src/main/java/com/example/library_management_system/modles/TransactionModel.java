@@ -12,15 +12,15 @@ public class TransactionModel {
     private String orderedBy;
     private int resourceId;
     private String resourceType;
-
+    private Enums.Types transactionType;
     public TransactionModel(String orderedBy, int resourceId, String resourceType){
         this(0, null, null, null, Enums.Stautus.PENDING, null,
-                orderedBy, resourceId, resourceType );
+                orderedBy, resourceId, resourceType, Enums.Types.BORROW );
     }
 
     public TransactionModel(int id,Date orderDate, Date approvedDate,
                             Date returnDate, Enums.Stautus status,
-                            String approvedBy, String orderedBy, int resourceId, String resourceType) {
+                            String approvedBy, String orderedBy, int resourceId, String resourceType, Enums.Types transactionType) {
         this.id = id;
         this.orderDate = orderDate;
         this.approvedDate = approvedDate;
@@ -30,6 +30,7 @@ public class TransactionModel {
         this.orderedBy = orderedBy;
         this.resourceId = resourceId;
         this.resourceType = resourceType;
+        this.transactionType = transactionType;
     }
 
     public int getId() {
@@ -104,6 +105,14 @@ public class TransactionModel {
         this.resourceType = resourceType;
     }
 
+    public Enums.Types getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(Enums.Types transactionType) {
+        this.transactionType = transactionType;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
@@ -115,6 +124,7 @@ public class TransactionModel {
                 ", approvedBy='" + approvedBy + '\'' +
                 ", orderedBy='" + orderedBy + '\'' +
                 ", resourceId=" + resourceId +
+                ", transactionType= " + transactionType +
                 '}';
     }
 }

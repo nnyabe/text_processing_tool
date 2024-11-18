@@ -59,11 +59,12 @@ CREATE TABLE IF NOT EXISTS transactions (
     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     approved_date TIMESTAMP,
     return_date TIMESTAMP,
-    status ENUM('PENDING', 'APPROVED', 'RETURNED', 'REJECTED') NOT NULL,
+    status ENUM('PENDING', 'APPROVED', 'RETURNED', 'REJECTED') NOT NULL DEFAULT 'PENDING',
     approved_by VARCHAR(50),
     ordered_by VARCHAR(50),
     resource_type VARCHAR(20),
-    resource_id int
+    transaction_type ENUM('BORROW', 'RESERVATION') NOT NULL DEFAULT 'BORROW',
+    resource_id INT
 );
 
 ALTER TABLE transactions ADD CONSTRAINT

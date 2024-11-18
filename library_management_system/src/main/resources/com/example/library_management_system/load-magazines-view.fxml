@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="709.0" prefWidth="1155.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.library_management_system.views.LoadMagazinesView">
-    <TableView fx:id="magazineTableView" layoutX="20" layoutY="73.0" prefHeight="482.0" prefWidth="936.0">
+    <TableView fx:id="magazineTableView" layoutX="77.0" layoutY="169.0" prefHeight="462.0" prefWidth="934.0">
         <columns>
             <TableColumn fx:id="titleColumn" prefWidth="150" text="Title">
                 <cellValueFactory>
@@ -22,22 +22,22 @@
                     <PropertyValueFactory property="publisher" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="totalCopiesColumn" text="Total Copies">
+            <TableColumn fx:id="totalCopiesColumn" prefWidth="105.0" text="Total Copies">
                 <cellValueFactory>
                     <PropertyValueFactory property="totalCopies" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="copiesLeftColumn" prefWidth="100" text="Copies Left">
+            <TableColumn fx:id="copiesLeftColumn" prefWidth="94.0" text="Copies Left">
                 <cellValueFactory>
                     <PropertyValueFactory property="copiesLeft" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="availableStateColumn" prefWidth="75" text="Available">
+            <TableColumn fx:id="availableStateColumn" prefWidth="74.0" text="Available">
                 <cellValueFactory>
                     <PropertyValueFactory property="availableState" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="issnColumn" prefWidth="150" text="ISSN">
+            <TableColumn fx:id="issnColumn" prefWidth="132.0" text="ISSN">
                 <cellValueFactory>
                     <PropertyValueFactory property="issn" />
                 </cellValueFactory>
