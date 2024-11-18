@@ -9,6 +9,10 @@ public abstract class UserModel {
     private Date created_at;
     private Date updated_at;
 
+    public UserModel(){
+
+    }
+
     public UserModel(int id, String username, String email, Date created_at, Date updated_at) {
         this.id = id;
         this.username = username;

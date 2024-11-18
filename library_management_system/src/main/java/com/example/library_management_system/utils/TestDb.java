@@ -11,20 +11,14 @@ import com.example.library_management_system.modles.TransactionModel;
 
 import java.util.Date;
 import java.util.List;
-
 public class TestDb {
+
 
     public static void main(String[] args) {
 
+
         try{
 
-
-//            System.out.println();
-//            MagazineController magazine = new MagazineController();
-//            List<MagazineModel> allmagz = magazine.getAll();
-//            for ( MagazineModel mags : allmagz){
-//                System.out.println(mags.toString());
-//            }
             PatronModel newPatron = new PatronModel("solomon", "solomnchamem@email.com");
 
             TransactionController transaction = new TransactionController();
@@ -42,4 +36,5 @@ public class TestDb {
             throw new RuntimeException(e);
         }
     }
+
 }

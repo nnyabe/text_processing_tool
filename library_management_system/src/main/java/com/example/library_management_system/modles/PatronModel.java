@@ -4,6 +4,9 @@ import java.util.Date;
 
 public class PatronModel extends UserModel{
 
+    public PatronModel(){
+
+    }
     public PatronModel( String username, String email){
         this(0, username, email, null, null);
 

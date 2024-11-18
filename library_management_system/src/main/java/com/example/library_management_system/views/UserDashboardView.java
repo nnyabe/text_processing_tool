@@ -29,9 +29,9 @@ public class UserDashboardView {
 
         booksButton.setOnAction(e -> loadPage("load-books-view.fxml"));
         magazinesButton.setOnAction(e -> loadPage("load-magazines-view.fxml"));
-        reservationButton.setOnAction(e -> loadPage("load-reservations-view.fxml"));
-        borrowButton.setOnAction(e -> loadPage("load-borrow-view.fxml"));
-        logsButton.setOnAction(e -> loadPage("load-logs-view.fxml"));
+        reservationButton.setOnAction(e -> loadPage("reserve-book-user-view.fxml"));
+        borrowButton.setOnAction(e -> loadPage("borrow-book-view.fxml"));
+        logsButton.setOnAction(e -> loadPage("transactions-user-view.fxml"));
         logOutButton.setOnAction(e -> loadPage("log-out.fxml"));
     }
 
