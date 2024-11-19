@@ -99,7 +99,12 @@ public class TransactionController extends BaseModelController<TransactionModel>
     }
 
     public List<TransactionModel> getUserTransactions(String username) throws SQLException {
-        String query = "SELECT * FROM transactions WHERE ordered_by = ?";
+        String query = """
+        SELECT t.*
+        FROM transactions t
+        INNER JOIN patrons p ON t.ordered_by = p.email
+         WHERE p.username = ?
+        """;
         List<TransactionModel> transactions = new ArrayList<>();
 
         try (Connection connection = DBConnection.createConnection();

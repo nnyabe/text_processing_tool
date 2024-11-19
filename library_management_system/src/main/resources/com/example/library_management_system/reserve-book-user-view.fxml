@@ -23,7 +23,7 @@
         </ComboBox>
 
         <TextField fx:id="resourceIdField" promptText="Enter Resource ID" />
-        <TextField fx:id="userIdField" promptText="Enter Your User username" />
+        <TextField fx:id="userIdField" promptText="Enter Your User ID" />
 
         <!-- Removed the DatePicker as per the request -->
 

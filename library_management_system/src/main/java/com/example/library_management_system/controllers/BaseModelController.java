@@ -1,7 +1,6 @@
 package com.example.library_management_system.controllers;
 
 import com.example.library_management_system.exceptions.MySQLConnectionException;
-import com.example.library_management_system.modles.BookModel;
 import com.example.library_management_system.utils.DBConnection;
 
 import java.sql.*;

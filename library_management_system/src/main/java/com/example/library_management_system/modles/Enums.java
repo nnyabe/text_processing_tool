@@ -9,6 +9,6 @@ public class Enums {
     }
 
     public enum Types {
-        BORROW, RESERVE
+        BORROW, RESERVATION
     }
 }

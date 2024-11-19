@@ -57,7 +57,7 @@ public class BorrowBookView{
                 throw new MySQLUserNotFound("Patron not found in the records.");
             }else{
                 TransactionController borrow = new TransactionController();
-                borrow.borrowResource(userId, Integer.parseInt(bookId), resourceType);
+                borrow.borrowResource(user.getEmail(), Integer.parseInt(bookId), resourceType);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -4,9 +4,12 @@ import com.example.library_management_system.controllers.PatronController;
 import com.example.library_management_system.controllers.TransactionController;
 import com.example.library_management_system.exceptions.MySQLUserNotFound;
 import com.example.library_management_system.modles.PatronModel;
-import javafx.event.ActionEvent;
+import com.example.library_management_system.modles.UserSession;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
 
@@ -28,6 +31,7 @@ public class ReserveBookView {
 
     @FXML
     private Label statusLabel;
+    private final String username = UserSession.getInstance().getUsername();
 
     @FXML
     public void initialize() {
@@ -50,12 +54,11 @@ public class ReserveBookView {
 
             PatronModel user = new PatronModel();
             user = patron.getById(Integer.parseInt(userId));
-
             if (user == null){
                 throw new MySQLUserNotFound("Patron not found in the records.");
             }else{
                 TransactionController reserve = new TransactionController();
-                reserve.reserveResource(userId, Integer.parseInt(bookId), resourceType);
+                reserve.reserveResource(user.getEmail(), Integer.parseInt(bookId), resourceType);
             }
         } catch (SQLException | MySQLUserNotFound e) {
             throw new RuntimeException(e);

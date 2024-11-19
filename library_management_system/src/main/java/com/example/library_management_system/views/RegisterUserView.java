@@ -1,6 +1,7 @@
 package com.example.library_management_system.views;
 
 import com.example.library_management_system.exceptions.MySQLConnectionException;
+import com.example.library_management_system.modles.UserSession;
 import com.example.library_management_system.utils.DBConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,6 +61,7 @@ public class RegisterUserView {
         } else {
             if (registerNewPatron(username, email, password)) {
                 errorMessageLabel.setText("");
+                UserSession.getInstance().setUsername(username);
                 redirectToDashboard();
             } else {
                 errorMessageLabel.setText("Registration failed. Please try again.");

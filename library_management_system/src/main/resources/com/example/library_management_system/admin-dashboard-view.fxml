@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="646.0" spacing="10.0" style="-fx-border-radius: 10 10 10 10; -fx-background-color: #F5F7FB; -fx-background-radius: 10 10 10 10;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.library_management_system.views.UserDashboardView">
+    <children>
+        <VBox alignment="TOP_CENTER" prefHeight="458.0" prefWidth="165.0" spacing="14.0" style="-fx-background-color: #fff; -fx-background-radius: 0 10 10 0;">
+            <children>
+                <Button fx:id="booksButton" mnemonicParsing="false" style="-fx-background-color: #3D3BF3; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 5; -fx-pref-width: 150; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 2, 2);" text="Books" />
+                <Button fx:id="magazinesButton" mnemonicParsing="false" style="-fx-background-color: #3D3BF3; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 5; -fx-pref-width: 150; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 2, 2);" text="Magazines" />
+                <Button fx:id="reservationButton" mnemonicParsing="false" style="-fx-background-color: #3D3BF3; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 5; -fx-pref-width: 150; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 2, 2);" text="Reservation" />
+                <Button fx:id="borrowButton" mnemonicParsing="false" style="-fx-background-color: #3D3BF3; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 5; -fx-pref-width: 150; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 2, 2);" text="Borrow" />
+                <Button fx:id="logsButton" mnemonicParsing="false" style="-fx-background-color: #3D3BF3; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 5; -fx-pref-width: 150; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 2, 2);" text="Logs" />
+                <Button fx:id="approveAllButton" mnemonicParsing="false" style="-fx-background-color: #28A745; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 5; -fx-pref-width: 150; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 2, 2);" text="Approve All" />
+                <Button fx:id="addBookButton" mnemonicParsing="false" style="-fx-background-color: #007BFF; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 5; -fx-pref-width: 150; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 2, 2);" text="Add Book" />
+                <Button fx:id="deleteBookButton" mnemonicParsing="false" style="-fx-background-color: #DC3545; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 5; -fx-pref-width: 150; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 2, 2);" text="Delete Book" />
+                <Button fx:id="logOutButton" mnemonicParsing="false" style="-fx-background-color: #3D3BF3; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 5; -fx-pref-width: 150; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 2, 2);" text="Log Out">
+                    <VBox.margin>
+                        <Insets top="100.0" />
+                    </VBox.margin>
+                </Button>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="80.0" />
+            </padding>
+        </VBox>
+        <FlowPane fx:id="flowPaneForContent" alignment="CENTER" prefHeight="458.0" prefWidth="517.0">
+            <children>
+                <!-- Pending requests or any additional content can go here -->
+            </children>
+        </FlowPane>
+    </children>
+</HBox>
+
