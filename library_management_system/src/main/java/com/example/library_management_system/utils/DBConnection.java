@@ -3,6 +3,9 @@ import com.example.library_management_system.exceptions.InvalidMySQLCredentialsE
 import com.example.library_management_system.exceptions.MySQLConnectionException;
 import com.example.library_management_system.exceptions.MySQLTimeoutException;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 
 
@@ -28,5 +31,52 @@ public class DBConnection {
         }
     }
 
+    public static void runSQLInitialization(String path){
+        try(Connection connection = DBConnection.createConnection();
+        Statement statement = connection.createStatement();){
+
+            BufferedReader reader = new BufferedReader(new FileReader(path));
+            String line;
+
+            StringBuilder query = new StringBuilder();
+            while((line = reader.readLine()) != null){
+                query.append(line).append('\n');
+            }
+
+            String[] queries = query.toString().split(";");
+            for (String sql : queries) {
+                if (!sql.trim().isEmpty()) {
+                    statement.executeUpdate(sql);
+                }
+            }
+            System.out.println("SQL script executed successfully.");
+        } catch (SQLException | MySQLConnectionException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void runSQLDataInputs(String path){
+        try(Connection connection = DBConnection.createConnection();
+            Statement statement = connection.createStatement();){
+
+            BufferedReader reader = new BufferedReader(new FileReader(path));
+            String line;
+
+            StringBuilder query = new StringBuilder();
+            while((line = reader.readLine()) != null){
+                query.append(line).append('\n');
+            }
+
+            String[] queries = query.toString().split(";");
+            for (String sql : queries) {
+                if (!sql.trim().isEmpty()) {
+                    statement.executeUpdate(sql);
+                }
+            }
+            System.out.println("SQL script executed successfully.");
+        } catch (SQLException | MySQLConnectionException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
