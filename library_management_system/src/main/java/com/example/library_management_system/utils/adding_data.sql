@@ -47,14 +47,15 @@ INSERT INTO magazines (available_state, title, publisher, total_copies, copies_l
 (TRUE, 'Bloomberg Businessweek', 'Bloomberg L.P.', 8, 8, 'David Smith', '0007-7135', 8);
 
 
-INSERT INTO transactions (order_date, approved_date, return_date, status, approved_by, ordered_by, resource_id) VALUES
-('2024-01-01', '2024-01-02', '2024-01-10', 'RETURNED', 'admin1@example.com', 'john.doe@example.com', 1),
-('2024-01-05', '2024-01-06', '2024-01-15', 'PENDING', 'admin2@example.com', 'jane.smith@example.com', 2),
-('2024-01-07', NULL, NULL, 'PENDING', 'admin1@example.com', 'mike.jones@example.com', 3),
-('2024-01-10', '2024-01-12', '2024-01-20', 'APPROVED', 'admin3@example.com', 'alice.williams@example.com', 4),
-('2024-01-12', NULL, NULL, 'PENDING', 'manager1@example.com', 'bob.brown@example.com', 5),
-('2024-01-15', NULL, NULL, 'PENDING', 'librarian1@example.com', 'charlie.davis@example.com', 6),
-('2024-01-17', '2024-01-18', '2024-01-25', 'RETURNED', 'admin1@example.com', 'david.miller@example.com', 7),
-('2024-01-20', NULL, NULL, 'PENDING', 'manager2@example.com', 'eve.white@example.com', 8),
-('2024-01-22', '2024-01-23', '2024-01-30', 'APPROVED', 'librarian3@example.com', 'frank.lee@example.com', 9),
-('2024-01-25', '2024-01-26', '2024-02-05', 'RETURNED', 'admin2@example.com', 'grace.kim@example.com', 10);
+INSERT INTO transactions (order_date, approved_date, return_date, status, approved_by, ordered_by, resource_type, transaction_type, resource_id)
+VALUES
+    ('2024-11-01 10:00:00', '2024-11-02 09:00:00', NULL, 'APPROVED', 'librarian1@example.com', 'john.doe@example.com', 'BOOK', 'BORROW', 1), -- The Great Gatsby
+    ('2024-11-02 11:00:00', NULL, NULL, 'PENDING', NULL, 'jane.smith@example.com', 'MAGAZINE', 'RESERVATION', 2), -- Time
+    ('2024-11-03 14:00:00', '2024-11-03 15:00:00', '2024-11-10 09:00:00', 'RETURNED', 'librarian2@example.com', 'mike.jones@example.com', 'BOOK', 'BORROW', 3), -- To Kill a Mockingbird
+    ('2024-11-04 13:00:00', NULL, NULL, 'PENDING', NULL, 'alice.williams@example.com', 'MAGAZINE', 'BORROW', 4), -- The Economist
+    ('2024-11-05 08:30:00', '2024-11-05 10:00:00', NULL, 'APPROVED', 'librarian3@example.com', 'bob.brown@example.com', 'BOOK', 'BORROW', 7), -- The Great Gatsby
+    ('2024-11-06 12:45:00', NULL, NULL, 'PENDING', NULL, 'charlie.davis@example.com', 'BOOK', 'RESERVATION', 2), -- 1984
+    ('2024-11-07 09:20:00', '2024-11-07 14:30:00', '2024-11-14 12:00:00', 'RETURNED', 'librarian1@example.com', 'david.miller@example.com', 'MAGAZINE', 'BORROW', 3), -- Scientific American
+    ('2024-11-08 16:10:00', NULL, NULL, 'PENDING', NULL, 'eve.white@example.com', 'MAGAZINE', 'RESERVATION', 5), -- Popular Science
+    ('2024-11-09 17:30:00', '2024-11-10 09:00:00', NULL, 'APPROVED', 'librarian2@example.com', 'frank.lee@example.com', 'BOOK', 'BORROW', 10), -- The Great Gatsby
+    ('2024-11-10 11:05:00', NULL, NULL, 'PENDING', NULL, 'grace.kim@example.com', 'MAGAZINE', 'BORROW', 4); -- The Economist

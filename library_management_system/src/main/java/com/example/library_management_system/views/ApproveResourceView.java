@@ -85,6 +85,14 @@ public class ApproveResourceView {
                         throw new RuntimeException(e);
                     }
                 });
+                returnButton.setOnAction(event -> {
+
+                        try {
+                            handlelReturnResource(getTableRow().getItem());
+                        } catch (SQLException | MySQLConnectionException e) {
+                            throw new RuntimeException(e);
+                        }
+                });
 
             }
 
@@ -97,6 +105,9 @@ public class ApproveResourceView {
                     TransactionModel transaction = getTableRow().getItem();
                     if ("PENDING".equals(transaction.getStatus())) {
                         setGraphic(approveButton);
+                    }
+                    if ("APPROVED".equals(transaction.getStatus())) {
+                        setGraphic(returnButton);
                     }
                 }
             }
@@ -130,6 +141,11 @@ public class ApproveResourceView {
             }
 
 
+    }
+
+
+    private void  handlelReturnResource(TransactionModel transaction) throws SQLException, MySQLConnectionException {
+        new TransactionController().returnResource(transaction.getId());
     }
 
     @FXML

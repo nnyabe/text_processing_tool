@@ -124,7 +124,7 @@ public class TransactionController extends BaseModelController<TransactionModel>
     }
 
     public void approveTransaction(int transactionId, String librarianName) throws SQLException, MySQLConnectionException {
-        String getResourceInfo = "SELECT resource_id, resource_type FROM transactions WHERE id = ? AND status = 'PENDING'";
+        String getResourceInfo = "SELECT resource_id, resource_type FROM transactions WHERE id = ?";
         String resourceType = "";
 
         try(Connection connection = DBConnection.createConnection();
@@ -145,7 +145,7 @@ public class TransactionController extends BaseModelController<TransactionModel>
             String query = "UPDATE transactions t JOIN books b ON t.resource_id = b.id " +
                     "SET t.status = 'APPROVED', t.approved_date = CURRENT_TIMESTAMP, t.approved_by = ?, " +
                     "b.copies_left = b.copies_left - 1 " +
-                    "WHERE t.id = ? AND t.status = 'PENDING' AND b.copies_left > 0";
+                    "WHERE t.id = ? AND b.copies_left > 0";
             executeUpdate(query, preparedStatement -> {
                         preparedStatement.setString(1, librarianName);
                         preparedStatement.setInt(2, transactionId);
@@ -156,7 +156,7 @@ public class TransactionController extends BaseModelController<TransactionModel>
             String query = "UPDATE transactions t JOIN magazines m ON t.resource_id = m.id " +
                     "SET t.status = 'APPROVED', t.approved_date = CURRENT_TIMESTAMP, t.approved_by = ?, " +
                     "m.copies_left = m.copies_left - 1 " +
-                    "WHERE t.id = ? AND t.status = 'PENDING' AND m.copies_left > 0";
+                    "WHERE t.id = ? AND m.copies_left > 0";
 
             executeUpdate(query, preparedStatement -> {
                         preparedStatement.setString(1, librarianName);
@@ -170,13 +170,49 @@ public class TransactionController extends BaseModelController<TransactionModel>
     }
 
 
-    public void returnResource(int transactionId) throws SQLException {
-        String query = "UPDATE transactions SET status = 'RETURNED', return_date = CURRENT_TIMESTAMP " +
-                "WHERE id = ? AND status = 'APPROVED'";
+    public void returnResource(int transactionId) throws SQLException, MySQLConnectionException {
+        String getResourceInfo = "SELECT resource_id, resource_type FROM transactions WHERE id = ? AND status = 'APPROVED'";
+        String resourceType = "";
 
-        executeUpdate(query, ps -> ps.setInt(1, transactionId),
-                "Return Successful", "The resource has been successfully returned.",
-                "Return Failed", "The resource could not be returned or is not approved.");
+        try (Connection connection = DBConnection.createConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(getResourceInfo)) {
+            preparedStatement.setInt(1, transactionId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                resourceType = resultSet.getString("resource_type");
+            } else {
+                throw new SQLException("Transaction not found or not in Pending state");
+            }
+        }
+
+        if ("BOOK".equalsIgnoreCase(resourceType)) {
+            // If the resource is a book, update the 'books' table
+            String query = "UPDATE transactions t JOIN books b ON t.resource_id = b.id " +
+                    "SET t.status = 'RETURNED', t.return_date = CURRENT_TIMESTAMP, " +
+                    "b.copies_left = b.copies_left + 1 " + // Increase the copies_left by 1
+                    "WHERE t.id = ? AND b.copies_left >= 0"; // Ensure no negative copies
+
+            executeUpdate(query, preparedStatement -> {
+
+                        preparedStatement.setInt(1, transactionId);
+                    }, "Transaction Approved", "The transaction has been successfully approved.",
+                    "Approval Failed", "The transaction could not be approved or is not in a pending state.");
+        } else if ("MAGAZINE".equalsIgnoreCase(resourceType)) {
+            String query = "UPDATE transactions t JOIN magazines m ON t.resource_id = m.id " +
+                    "SET t.status = 'RETURNED', t.return_date = CURRENT_TIMESTAMP, " +
+                    "m.copies_left = m.copies_left + 1 " +
+                    "WHERE t.id = ? AND m.copies_left >= 0";
+
+            executeUpdate(query, preparedStatement -> {
+
+                        preparedStatement.setInt(1, transactionId);
+                    }, "Transaction Approved", "The transaction has been successfully approved.",
+                    "Approval Failed", "The transaction could not be approved or is not in a pending state.");
+        } else {
+            throw new SQLException("Invalid resource type.");
+        }
+
     }
 
 

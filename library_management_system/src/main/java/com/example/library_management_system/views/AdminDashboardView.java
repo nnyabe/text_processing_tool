@@ -1,13 +1,16 @@
 package com.example.library_management_system.views;
 
 import com.example.library_management_system.HelloApplication;
+import com.example.library_management_system.modles.UserSession;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 
 public class AdminDashboardView {
 
@@ -30,7 +33,7 @@ public class AdminDashboardView {
             addBookButton.setOnAction(e -> loadPage("add-book-view.fxml"));
             approveAllButton.setOnAction(e -> loadPage("approve-view.fxml"));
             deleteBookButton.setOnAction(e -> loadPage("delete-book-view.fxml"));
-            logOutButton.setOnAction(e -> loadPage("log-out.fxml"));
+            logOutButton.setOnAction(e -> logOut());
         }
 
         public void loadPage(String pageName) {
@@ -46,7 +49,24 @@ public class AdminDashboardView {
         }
 
         private void logOut() {
-            // Handle log out
+            try {
+                // Set the username to null (or handle this as required)
+                UserSession.getInstance().setUsername("null");
+
+                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("login-user-view.fxml"));
+                Scene scene = new Scene(loader.load(), 480, 500);
+
+                Stage currentStage = (Stage)flowPaneForContent.getScene().getWindow();
+                Stage newStage = new Stage();
+                currentStage.setFullScreen(true);
+                newStage.setScene(scene);
+                newStage.show();
+
+                currentStage.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
