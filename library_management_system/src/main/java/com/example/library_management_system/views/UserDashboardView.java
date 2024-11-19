@@ -1,5 +1,6 @@
 package com.example.library_management_system.views;
 
+import com.example.library_management_system.modles.UserSession;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,7 +33,7 @@ public class UserDashboardView {
         reservationButton.setOnAction(e -> loadPage("reserve-book-user-view.fxml"));
         borrowButton.setOnAction(e -> loadPage("borrow-book-view.fxml"));
         logsButton.setOnAction(e -> loadPage("transactions-user-view.fxml"));
-        logOutButton.setOnAction(e -> loadPage("log-out.fxml"));
+        logOutButton.setOnAction(e -> logOut());
     }
 
     public void loadPage(String pageName) {
@@ -48,6 +49,15 @@ public class UserDashboardView {
     }
 
     private void logOut() {
-        // Handle log out
+        try{
+            UserSession.getInstance().setUsername("null");
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("login-user-view.fxml"));
+            Parent page = loader.load();
+
+            flowPaneForContent.getChildren().clear();
+            flowPaneForContent.getChildren().add(page);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -24,6 +24,7 @@ public class BookModel extends ResourcesModel {
         this.edition = edition;
     }
 
+
     public String getAuthor() {
         return author;
     }

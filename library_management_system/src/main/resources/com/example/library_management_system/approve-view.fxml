@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.collections.FXCollections?>
-<?import javafx.collections.ObservableList?>
 
-<VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: #F5F7FB;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="996.0" spacing="20.0" style="-fx-background-color: #F5F7FB;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.library_management_system.views.ApproveResourceView">
     <children>
-        <Label text="Pending Requests" style="-fx-font-size: 24; -fx-text-fill: #3D3BF3; -fx-font-weight: bold;" />
+        <Label style="-fx-font-size: 24; -fx-text-fill: #3D3BF3; -fx-font-weight: bold;" text="Pending Requests" />
 
         <!-- TableView to Display Pending Requests -->
-        <TableView fx:id="requestsTable" prefHeight="400.0" prefWidth="750.0">
+        <TableView fx:id="transactionsTable" prefHeight="400.0" prefWidth="1044.0">
             <columns>
-                <TableColumn text="Title" fx:id="titleColumn" prefWidth="200.0" />
-                <TableColumn text="Requester" fx:id="requesterColumn" prefWidth="200.0" />
-                <TableColumn text="Request Date" fx:id="dateColumn" prefWidth="150.0" />
-                <TableColumn text="Action" fx:id="actionColumn" prefWidth="200.0" />
+                <TableColumn fx:id="statusColumn" prefWidth="200.0" text="Status" />
+                <TableColumn fx:id="approvedDateColumn" prefWidth="200.0" text="Approved Date" />
+                <TableColumn fx:id="requesterColumn" prefWidth="200.0" text="Ordered by" />
+                <TableColumn fx:id="orderDateColumn" prefWidth="150.0" text="Request Date" />
+                <TableColumn fx:id="actionColumn" prefWidth="200.0" text="Action" />
             </columns>
         </TableView>
-
+        <Button fx:id="refreshButton" onAction="#handleRefresh" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;" text="Refresh" />
         <!-- Status Message -->
-        <Label fx:id="statusLabel" style="-fx-font-size: 16; -fx-text-fill: red;" />
+        <Label fx:id="statusLabel" style="-fx-font-size: 16; -fx-text-fill: green;" />
     </children>
 
     <padding>

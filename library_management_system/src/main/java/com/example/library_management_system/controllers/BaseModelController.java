@@ -62,8 +62,9 @@ public abstract class BaseModelController<T> {
 
         try (Connection connection = DBConnection.createConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
             preparedStatement.setInt(1, id);
+            System.out.println(preparedStatement);
+
             rowsAffected = preparedStatement.executeUpdate();
         } catch (MySQLConnectionException e) {
             throw new SQLException("Error deleting record: " + e.getMessage());

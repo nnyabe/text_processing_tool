@@ -65,8 +65,8 @@ public class TransactionModel {
         this.returnDate = returnDate;
     }
 
-    public Enums.Stautus getStatus() {
-        return status;
+    public String getStatus() {
+        return String.valueOf(status);
     }
 
     public void setStatus(Enums.Stautus status) {

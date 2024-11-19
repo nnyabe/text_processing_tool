@@ -47,10 +47,8 @@ public class DeleteResourceView{
                 throw new RuntimeException(ex);
             }
         });
-//        resourceTypeComboBox.getItems().addAll("Book", "Magazine");
-        resourceTypeComboBox.getSelectionModel().selectFirst();  // Default selection to "Book"
 
-        // Initially, hide the resource details section
+        resourceTypeComboBox.getSelectionModel().selectFirst();
         resourceDetails.setVisible(false);
 
     }
@@ -58,7 +56,6 @@ public class DeleteResourceView{
     @FXML
     private void handleSearchButton() throws SQLException {
         String searchTerm = searchField.getText();
-        System.out.println("in the function");
 
         if (searchTerm.isEmpty()) {
             statusLabel.setText("Please enter a resource ID.");
@@ -108,14 +105,17 @@ public class DeleteResourceView{
     @FXML
     private void handleDeleteButton() throws SQLException {
         String selectedResourceType = resourceTypeComboBox.getSelectionModel().getSelectedItem();
-        int resourceId = Integer.parseInt(resourceIdLabel.getText().replace("ID: ", ""));
+        int resourceId = Integer.parseInt(searchField.getText());
 
+        System.out.println(resourceId);
         boolean success = false;
 
         if (selectedResourceType.equals("Book")) {
             success = bookService.deleteById(resourceId);
         } else if (selectedResourceType.equals("Magazine")) {
+
             success = magazineService.deleteById(resourceId);
+//            System.out.println(success);
         }
 
         if (success) {

@@ -44,8 +44,9 @@ public class LoginUserView {
 
     @FXML
     public void handleLogin() {
-        String username = usernameField.getText();
+        String username = usernameField.getText().trim();
         String password = passwordField.getText();
+
 
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             displayErrorMessage("Username and password must not be empty!");
@@ -130,13 +131,30 @@ public class LoginUserView {
 
     private void redirectToAdminPanel() {
         System.out.println("Redirecting to Admin Panel...");
-        // Implement logic to load and display the admin panel
+        try {
+            // Load the registration FXML
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("admin-dashboard-view.fxml"));
+            Parent root = loader.load();
+
+            // Create a new scene and set it to the stage
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) registerButton.getScene().getWindow();
+            stage.setScene(scene);
+
+            // Optionally, set the title
+            stage.setTitle("Admin Panel");
+
+            // Show the new stage
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         closeCurrentWindow();
     }
 
     private void closeCurrentWindow() {
         Stage stage = (Stage) loginButton.getScene().getWindow();
-        stage.close();
+//        stage.close();
     }
 
     private void displayErrorMessage(String message) {

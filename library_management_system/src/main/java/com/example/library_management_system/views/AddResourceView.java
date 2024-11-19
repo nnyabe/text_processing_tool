@@ -1,15 +1,19 @@
 package com.example.library_management_system.views;
 
+import com.example.library_management_system.controllers.BookController;
+import com.example.library_management_system.controllers.MagazineController;
+import com.example.library_management_system.modles.BookModel;
+import com.example.library_management_system.modles.MagazineModel;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+
+import java.sql.SQLException;
 
 public class AddResourceView {
 
+    @FXML private CheckBox availableStateCheckBox;
     @FXML private ComboBox<String> resourceTypeComboBox;  // ComboBox to choose between Book or Magazine
     @FXML private VBox bookForm;  // VBox for Book form fields
     @FXML private VBox magazineForm;  // VBox for Magazine form fields
@@ -47,12 +51,18 @@ public class AddResourceView {
                 magazineForm.setVisible(true);
             }
         });
-        saveButton.setOnAction(e ->handleSaveButton());
+        saveButton.setOnAction(e -> {
+            try {
+                handleSaveButton();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         cancelButton.setOnAction(e ->handleCancelButton());
     }
 
     @FXML
-    private void handleSaveButton() {
+    private void handleSaveButton() throws SQLException {
         // Check if a resource type is selected
         if (resourceTypeComboBox.getValue() == null) {
             showError("Please select a resource type.");
@@ -62,14 +72,34 @@ public class AddResourceView {
         // Check for missing input fields based on the selected resource type
         if ("Book".equals(resourceTypeComboBox.getValue())) {
             if (isBookFormValid()) {
-                // Process saving the book (e.g., save to database)
+                boolean available = availableStateCheckBox.isSelected();
+                String title =  magazineTitleField.getText();
+                String author =  editorField.getText();
+                String publisher = magazinePublisherField.getText();
+                String isbn =   isbnField.getText();
+                int edition = Integer.parseInt(editionField.getText());
+                int totalCopies = Integer.parseInt(copiesField.getText());
+                int copiesLeft = Integer.parseInt(copiesLeftField.getText());
+                BookModel book = new BookModel(available, title,publisher,totalCopies,copiesLeft,author,
+                        isbn,edition);
+                new BookController().createOne(book);
                 showSuccess("Book saved successfully!");
             } else {
                 showError("Please fill in all the fields for the book.");
             }
         } else if ("Magazine".equals(resourceTypeComboBox.getValue())) {
             if (isMagazineFormValid()) {
-                // Process saving the magazine (e.g., save to database)
+                boolean available = availableStateCheckBox.isSelected();
+                String title =  titleField.getText();
+                String author =  authorField.getText();
+                String publisher = publisherField.getText();
+                String isbn =   issnField.getText();
+                int edition = Integer.parseInt(volumeField.getText());
+                int totalCopies = Integer.parseInt(magazineCopiesField.getText());
+                int copiesLeft = Integer.parseInt(magazineCopiesLeftField.getText());
+                MagazineModel magazine = new MagazineModel(available, title,publisher,totalCopies,copiesLeft,author,
+                        isbn,edition);
+                new MagazineController().createOne(magazine);
                 showSuccess("Magazine saved successfully!");
             } else {
                 showError("Please fill in all the fields for the magazine.");
