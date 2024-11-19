@@ -51,7 +51,11 @@ public class ApproveResourceView {
 
     private final ObservableList<TransactionModel> transactionList = FXCollections.observableArrayList();
 
-
+    /**
+     * Initializes the table view and action buttons, binds data to table columns.
+     *
+     * @throws SQLException if database connection or queries fail.
+     */
     @FXML
     public void initialize() throws SQLException {
         refreshButton.setOnAction(e -> {
@@ -61,6 +65,7 @@ public class ApproveResourceView {
                 throw new RuntimeException(ex);
             }
         });
+
         orderDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOrderDate().toString()));
         approvedDateColumn.setCellValueFactory(cellData -> {
             if (cellData.getValue().getApprovedDate() != null) {
@@ -77,6 +82,7 @@ public class ApproveResourceView {
         actionColumn.setCellFactory(param -> new TableCell<TransactionModel, String>() {
             private final Button approveButton = new Button("Approve");
             private final Button returnButton = new Button("Return");
+
             {
                 approveButton.setOnAction(event -> {
                     try {
@@ -86,14 +92,12 @@ public class ApproveResourceView {
                     }
                 });
                 returnButton.setOnAction(event -> {
-
-                        try {
-                            handlelReturnResource(getTableRow().getItem());
-                        } catch (SQLException | MySQLConnectionException e) {
-                            throw new RuntimeException(e);
-                        }
+                    try {
+                        handlelReturnResource(getTableRow().getItem());
+                    } catch (SQLException | MySQLConnectionException e) {
+                        throw new RuntimeException(e);
+                    }
                 });
-
             }
 
             @Override
@@ -113,46 +117,58 @@ public class ApproveResourceView {
             }
         });
 
-        List<TransactionModel> transaction= new TransactionController().getAll();
+        List<TransactionModel> transaction = new TransactionController().getAll();
         transactionList.clear();
         transactionList.addAll(transaction);
         transactionsTable.setItems(transactionList);
-
-
     }
 
+    /**
+     * Handles the approval of a resource request by updating its status.
+     *
+     * @param transaction The transaction to approve.
+     * @throws SQLException if database interaction fails.
+     * @throws MySQLConnectionException if there is a connection issue.
+     */
     private void handleApproveRequest(TransactionModel transaction) throws MySQLConnectionException, SQLException {
+        TransactionController transact = new TransactionController();
+        String librarian = UserSession.getInstance().getUsername();
+        String email = null;
+        String query = "SELECT email FROM admins WHERE username = ?";
 
-            TransactionController transact = new TransactionController();
-            String librarian = UserSession.getInstance().getUsername();
-            String email = null;
-            String query = "SELECT email FROM admins WHERE username = ?";
-            try(Connection connection = DBConnection.createConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(query)){
-                preparedStatement.setString(1, librarian);
+        try (Connection connection = DBConnection.createConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, librarian);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-                ResultSet resultSet = preparedStatement.executeQuery();
-
-                if(resultSet.next()){
-                    email = resultSet.getString("email");
-                }
-                transact.approveTransaction(transaction.getId(), email);
-                statusLabel.setText("Request Approved");
+            if (resultSet.next()) {
+                email = resultSet.getString("email");
             }
 
-
+            transact.approveTransaction(transaction.getId(), email);
+            statusLabel.setText("Request Approved");
+        }
     }
 
-
-    private void  handlelReturnResource(TransactionModel transaction) throws SQLException, MySQLConnectionException {
+    /**
+     * Handles the return of a resource.
+     *
+     * @param transaction The transaction to return.
+     * @throws SQLException if database interaction fails.
+     * @throws MySQLConnectionException if there is a connection issue.
+     */
+    private void handlelReturnResource(TransactionModel transaction) throws SQLException, MySQLConnectionException {
         new TransactionController().returnResource(transaction.getId());
     }
 
+    /**
+     * Refreshes the transaction table by reloading the transaction data.
+     *
+     * @throws SQLException if database interaction fails.
+     */
     @FXML
     public void handleRefresh() throws SQLException {
-        // This simulates refreshing the table data (for now it clears and re-adds transactions)
-
-        List<TransactionModel> transaction= new TransactionController().getAll();
+        List<TransactionModel> transaction = new TransactionController().getAll();
         transactionList.clear();
         transactionList.addAll(transaction);
 

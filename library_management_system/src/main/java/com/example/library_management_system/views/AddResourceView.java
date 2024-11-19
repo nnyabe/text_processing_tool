@@ -14,9 +14,9 @@ import java.sql.SQLException;
 public class AddResourceView {
 
     @FXML private CheckBox availableStateCheckBox;
-    @FXML private ComboBox<String> resourceTypeComboBox;  // ComboBox to choose between Book or Magazine
-    @FXML private VBox bookForm;  // VBox for Book form fields
-    @FXML private VBox magazineForm;  // VBox for Magazine form fields
+    @FXML private ComboBox<String> resourceTypeComboBox;
+    @FXML private VBox bookForm;
+    @FXML private VBox magazineForm;
 
     // Book form fields
     @FXML private TextField titleField;
@@ -36,12 +36,15 @@ public class AddResourceView {
     @FXML private TextField magazineCopiesField;
     @FXML private TextField magazineCopiesLeftField;
 
-    @FXML private Button saveButton;  // Save button
-    @FXML private Button cancelButton;  // Cancel button
+    @FXML private Button saveButton;
+    @FXML private Button cancelButton;
 
+    /**
+     * Initializes the view by setting visibility for resource type forms.
+     */
     @FXML
     private void initialize() {
-        // Set the initial visibility for forms based on ComboBox selection
+        // Toggle between book and magazine forms based on selection
         resourceTypeComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
             if ("Book".equals(newValue)) {
                 bookForm.setVisible(true);
@@ -58,30 +61,28 @@ public class AddResourceView {
                 throw new RuntimeException(ex);
             }
         });
-        cancelButton.setOnAction(e ->handleCancelButton());
+        cancelButton.setOnAction(e -> handleCancelButton());
     }
 
+    /**
+     * Handles saving a new resource (book or magazine).
+     */
     @FXML
     private void handleSaveButton() throws SQLException {
-        // Check if a resource type is selected
+        // Validate resource type and form fields, then save resource
         if (resourceTypeComboBox.getValue() == null) {
             showError("Please select a resource type.");
             return;
         }
 
-        // Check for missing input fields based on the selected resource type
         if ("Book".equals(resourceTypeComboBox.getValue())) {
             if (isBookFormValid()) {
-                boolean available = availableStateCheckBox.isSelected();
-                String title =  magazineTitleField.getText();
-                String author =  editorField.getText();
-                String publisher = magazinePublisherField.getText();
-                String isbn =   isbnField.getText();
-                int edition = Integer.parseInt(editionField.getText());
-                int totalCopies = Integer.parseInt(copiesField.getText());
-                int copiesLeft = Integer.parseInt(copiesLeftField.getText());
-                BookModel book = new BookModel(available, title,publisher,totalCopies,copiesLeft,author,
-                        isbn,edition);
+                BookModel book = new BookModel(availableStateCheckBox.isSelected(),
+                        titleField.getText(), publisherField.getText(),
+                        Integer.parseInt(copiesField.getText()),
+                        Integer.parseInt(copiesLeftField.getText()),
+                        authorField.getText(), isbnField.getText(),
+                        Integer.parseInt(editionField.getText()));
                 new BookController().createOne(book);
                 showSuccess("Book saved successfully!");
             } else {
@@ -89,16 +90,12 @@ public class AddResourceView {
             }
         } else if ("Magazine".equals(resourceTypeComboBox.getValue())) {
             if (isMagazineFormValid()) {
-                boolean available = availableStateCheckBox.isSelected();
-                String title =  titleField.getText();
-                String author =  authorField.getText();
-                String publisher = publisherField.getText();
-                String isbn =   issnField.getText();
-                int edition = Integer.parseInt(volumeField.getText());
-                int totalCopies = Integer.parseInt(magazineCopiesField.getText());
-                int copiesLeft = Integer.parseInt(magazineCopiesLeftField.getText());
-                MagazineModel magazine = new MagazineModel(available, title,publisher,totalCopies,copiesLeft,author,
-                        isbn,edition);
+                MagazineModel magazine = new MagazineModel(availableStateCheckBox.isSelected(),
+                        magazineTitleField.getText(), magazinePublisherField.getText(),
+                        Integer.parseInt(magazineCopiesField.getText()),
+                        Integer.parseInt(magazineCopiesLeftField.getText()),
+                        editorField.getText(), issnField.getText(),
+                        Integer.parseInt(volumeField.getText()));
                 new MagazineController().createOne(magazine);
                 showSuccess("Magazine saved successfully!");
             } else {
@@ -107,13 +104,17 @@ public class AddResourceView {
         }
     }
 
+    /**
+     * Handles resetting form fields to their default values.
+     */
     @FXML
     private void handleCancelButton() {
-        // Reset all fields to their default values
         resetFields();
     }
 
-    // Helper method to check if all book fields are filled
+    /**
+     * Validates book form fields.
+     */
     private boolean isBookFormValid() {
         return !titleField.getText().isEmpty() && !authorField.getText().isEmpty() &&
                 !publisherField.getText().isEmpty() && !isbnField.getText().isEmpty() &&
@@ -121,7 +122,9 @@ public class AddResourceView {
                 !copiesLeftField.getText().isEmpty();
     }
 
-    // Helper method to check if all magazine fields are filled
+    /**
+     * Validates magazine form fields.
+     */
     private boolean isMagazineFormValid() {
         return !magazineTitleField.getText().isEmpty() && !editorField.getText().isEmpty() &&
                 !magazinePublisherField.getText().isEmpty() && !issnField.getText().isEmpty() &&
@@ -129,7 +132,9 @@ public class AddResourceView {
                 !magazineCopiesLeftField.getText().isEmpty();
     }
 
-    // Show error message in an alert
+    /**
+     * Displays an error alert with a message.
+     */
     private void showError(String message) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Error");
@@ -138,7 +143,9 @@ public class AddResourceView {
         alert.showAndWait();
     }
 
-    // Show success message in an alert
+    /**
+     * Displays a success alert with a message.
+     */
     private void showSuccess(String message) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Success");
@@ -147,9 +154,10 @@ public class AddResourceView {
         alert.showAndWait();
     }
 
-    // Reset all fields to their default values
+    /**
+     * Resets all input fields and ComboBox to their initial states.
+     */
     private void resetFields() {
-        // Clear all text fields
         titleField.clear();
         authorField.clear();
         publisherField.clear();
@@ -166,10 +174,7 @@ public class AddResourceView {
         magazineCopiesField.clear();
         magazineCopiesLeftField.clear();
 
-        // Clear ComboBox selection
         resourceTypeComboBox.getSelectionModel().clearSelection();
-
-        // Hide both forms to reset the visibility state
         bookForm.setVisible(false);
         magazineForm.setVisible(false);
     }

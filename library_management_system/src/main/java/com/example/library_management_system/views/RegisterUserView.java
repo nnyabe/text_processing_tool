@@ -20,7 +20,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The {@code RegisterUserView} class handles the registration functionality for new users (patrons).
+ * It validates input fields, checks if the username or email is already taken, and registers a new patron
+ * in the system if all validations pass.
+ */
 public class RegisterUserView {
+
     @FXML
     private AnchorPane register_background;
     @FXML
@@ -34,31 +40,49 @@ public class RegisterUserView {
     @FXML
     private Button createAccountButton;
 
+    /**
+     * Initializes the registration view by setting up the event handler for the
+     * "Create Account" button.
+     */
     @FXML
     public void initialize() {
         createAccountButton.setOnAction(e -> handleRegister());
     }
 
+    /**
+     * Handles the registration process by validating the user inputs, checking if the
+     * username or email is already taken, and registering the new patron if all checks pass.
+     *
+     * @throws RuntimeException if any database errors occur during validation or registration.
+     */
     @FXML
     private void handleRegister() {
         String username = usernameField.getText().trim();
         String email = emailField.getText().trim();
         String password = passwordField.getText().trim();
 
-        // Basic validation
+        // Basic validation for empty fields
         if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
             errorMessageLabel.setText("All fields are required.");
             errorMessageLabel.setOpacity(1);
-        } else if (!isEmailValid(email)) {
+        }
+        // Check if the email format is valid
+        else if (!isEmailValid(email)) {
             errorMessageLabel.setText("Invalid email format.");
             errorMessageLabel.setOpacity(1);
-        } else if (!isPasswordStrong(password)) {
+        }
+        // Check if the password is strong enough
+        else if (!isPasswordStrong(password)) {
             errorMessageLabel.setText("Password is too weak.");
             errorMessageLabel.setOpacity(1);
-        } else if (isEmailOrUsernameTaken(username, email)) {
+        }
+        // Check if the email or username is already taken
+        else if (isEmailOrUsernameTaken(username, email)) {
             errorMessageLabel.setText("Username or email already taken.");
             errorMessageLabel.setOpacity(1);
-        } else {
+        }
+        // If all validations pass, register the new patron
+        else {
             if (registerNewPatron(username, email, password)) {
                 errorMessageLabel.setText("");
                 UserSession.getInstance().setUsername(username);
@@ -70,17 +94,38 @@ public class RegisterUserView {
         }
     }
 
+    /**
+     * Validates the email format using a regular expression.
+     *
+     * @param email the email address to be validated.
+     * @return true if the email format is valid, false otherwise.
+     */
     private boolean isEmailValid(String email) {
         String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
         return email.matches(emailRegex);
     }
 
+    /**
+     * Validates the strength of the password. The password is considered strong if it
+     * has at least 8 characters, contains both upper and lowercase letters, contains
+     * at least one digit, and has at least one special character.
+     *
+     * @param password the password to be validated.
+     * @return true if the password is strong, false otherwise.
+     */
     private boolean isPasswordStrong(String password) {
         return password.length() >= 8 && password.matches(".*[A-Z].*")
                 && password.matches(".*[a-z].*") && password.matches(".*\\d.*")
                 && password.matches(".*[!@#$%^&*].*");
     }
 
+    /**
+     * Checks if the given username or email already exists in the database.
+     *
+     * @param username the username to be checked.
+     * @param email the email to be checked.
+     * @return true if the username or email is already taken, false otherwise.
+     */
     private boolean isEmailOrUsernameTaken(String username, String email) {
         String query = "SELECT COUNT(*) FROM patrons WHERE username = ? OR email = ?";
 
@@ -92,7 +137,7 @@ public class RegisterUserView {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    return resultSet.getInt(1) > 0;
+                    return resultSet.getInt(1) > 0; // If count is > 0, username/email is taken
                 }
             }
         } catch (MySQLConnectionException e) {
@@ -106,6 +151,14 @@ public class RegisterUserView {
         return false;
     }
 
+    /**
+     * Registers a new patron by inserting the given username and email into the database.
+     *
+     * @param username the username of the new patron.
+     * @param email the email of the new patron.
+     * @param password the password of the new patron.
+     * @return true if the registration was successful, false otherwise.
+     */
     private boolean registerNewPatron(String username, String email, String password) {
         String query = "INSERT INTO patrons (username, email) VALUES (?, ?)";
 
@@ -117,7 +170,7 @@ public class RegisterUserView {
 
             int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {
-                return true;
+                return true; // Successfully registered the new patron
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -127,26 +180,23 @@ public class RegisterUserView {
             throw new RuntimeException(e);
         }
 
-        return false;
+        return false; // Registration failed
     }
 
+    /**
+     * Redirects the user to the dashboard view after successful registration.
+     *
+     * @throws RuntimeException if the dashboard FXML file cannot be loaded.
+     */
     private void redirectToDashboard() {
-        // Load the FXML file for the user dashboard
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/path/to/user-dashboard-view.fxml"));
             Parent root = loader.load();
 
-            // Create a new scene using the loaded FXML
             Scene scene = new Scene(root);
-
-            // Get the current window (stage) and set the new scene
             Stage stage = (Stage) createAccountButton.getScene().getWindow();
             stage.setScene(scene);
-
-            // Optionally, set the title for the new scene
             stage.setTitle("User Dashboard");
-
-            // Show the new scene
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

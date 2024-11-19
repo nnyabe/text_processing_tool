@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 
 import java.sql.SQLException;
 
-public class DeleteResourceView{
+public class DeleteResourceView {
 
     @FXML private ComboBox<String> resourceTypeComboBox;  // ComboBox to select resource type (Book or Magazine)
     @FXML private TextField searchField;  // Search field to enter the resource ID
@@ -26,21 +26,25 @@ public class DeleteResourceView{
     @FXML private Label statusLabel;      // Status label for success or error messages
     @FXML private Button searchButton;
 
-    private final BookController bookService = new BookController();  // Assuming BookService handles book data
-    private final MagazineController magazineService = new MagazineController();  // Assuming MagazineService handles magazine data
+    private final BookController bookService = new BookController();  // Book service to handle book data
+    private final MagazineController magazineService = new MagazineController();  // Magazine service to handle magazine data
 
+    /**
+     * Initializes the view and sets up event handlers for search and delete actions.
+     */
     @FXML
     private void initialize() {
-        // Initialize ComboBox to select resource type
+        // Sets the action for the search button
         searchButton.setOnAction(e -> {
-            System.out.println("Entered the click");
             try {
                 handleSearchButton();
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
         });
-        deleteButton.setOnAction( e-> {
+
+        // Sets the action for the delete button
+        deleteButton.setOnAction(e -> {
             try {
                 handleDeleteButton();
             } catch (SQLException ex) {
@@ -48,11 +52,16 @@ public class DeleteResourceView{
             }
         });
 
-        resourceTypeComboBox.getSelectionModel().selectFirst();
-        resourceDetails.setVisible(false);
-
+        resourceTypeComboBox.getSelectionModel().selectFirst(); // Select the first resource type
+        resourceDetails.setVisible(false);  // Hide resource details initially
     }
 
+    /**
+     * Handles the search button click by searching for a resource (Book or Magazine) based on the ID.
+     * Displays the resource details if found.
+     *
+     * @throws SQLException if there is an error fetching data from the database.
+     */
     @FXML
     private void handleSearchButton() throws SQLException {
         String searchTerm = searchField.getText();
@@ -84,6 +93,11 @@ public class DeleteResourceView{
         }
     }
 
+    /**
+     * Displays the details of the book in the UI.
+     *
+     * @param book The book object to display details for.
+     */
     private void displayBookDetails(BookModel book) {
         resourceTitleLabel.setText("Title: " + book.getTitle());
         resourceAuthorLabel.setText("Author: " + book.getAuthor());
@@ -93,6 +107,11 @@ public class DeleteResourceView{
         statusLabel.setText("");  // Clear status label
     }
 
+    /**
+     * Displays the details of the magazine in the UI.
+     *
+     * @param magazine The magazine object to display details for.
+     */
     private void displayMagazineDetails(MagazineModel magazine) {
         resourceTitleLabel.setText("Title: " + magazine.getTitle());
         resourceAuthorLabel.setText("Editor: " + magazine.getEditor());
@@ -102,22 +121,27 @@ public class DeleteResourceView{
         statusLabel.setText("");  // Clear status label
     }
 
+    /**
+     * Handles the delete button click by deleting the resource (Book or Magazine) based on the entered ID.
+     * Displays the success or failure message.
+     *
+     * @throws SQLException if there is an error deleting the resource.
+     */
     @FXML
     private void handleDeleteButton() throws SQLException {
         String selectedResourceType = resourceTypeComboBox.getSelectionModel().getSelectedItem();
         int resourceId = Integer.parseInt(searchField.getText());
 
-        System.out.println(resourceId);
         boolean success = false;
 
+        // Delete the resource based on selected type
         if (selectedResourceType.equals("Book")) {
             success = bookService.deleteById(resourceId);
         } else if (selectedResourceType.equals("Magazine")) {
-
             success = magazineService.deleteById(resourceId);
-//            System.out.println(success);
         }
 
+        // Update the UI with the result of the deletion
         if (success) {
             statusLabel.setText(selectedResourceType + " deleted successfully.");
             resourceDetails.setVisible(false);

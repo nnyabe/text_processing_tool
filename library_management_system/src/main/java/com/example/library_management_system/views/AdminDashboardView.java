@@ -14,59 +14,67 @@ import javafx.stage.Stage;
 
 public class AdminDashboardView {
 
+    @FXML
+    private Button deleteBookButton, addBookButton, approveAllButton, booksButton, magazinesButton, reservationButton, borrowButton, logsButton, logOutButton;
 
-        @FXML
-        private Button deleteBookButton, addBookButton,approveAllButton, booksButton, magazinesButton, reservationButton, borrowButton, logsButton, logOutButton;
+    @FXML
+    private FlowPane flowPaneForContent;
 
-        @FXML
-        private FlowPane flowPaneForContent;
+    @FXML
+    private TableView<Tab> tableView;
 
-        @FXML
-        private TableView<Tab> tableView;
+    /**
+     * Initializes the dashboard with event handlers for buttons.
+     */
+    @FXML
+    public void initialize() {
+        booksButton.setOnAction(e -> loadPage("load-books-view.fxml"));
+        magazinesButton.setOnAction(e -> loadPage("load-magazines-view.fxml"));
+        logsButton.setOnAction(e -> loadPage("transactions-user-view.fxml"));
+        addBookButton.setOnAction(e -> loadPage("add-book-view.fxml"));
+        approveAllButton.setOnAction(e -> loadPage("approve-view.fxml"));
+        deleteBookButton.setOnAction(e -> loadPage("delete-book-view.fxml"));
+        logOutButton.setOnAction(e -> logOut());
+    }
 
-        @FXML
-        public void initialize() {
+    /**
+     * Loads a new page into the flow pane.
+     *
+     * @param pageName The name of the FXML page to load.
+     */
+    public void loadPage(String pageName) {
+        try {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(pageName));
+            Parent page = loader.load();
 
-            booksButton.setOnAction(e -> loadPage("load-books-view.fxml"));
-            magazinesButton.setOnAction(e -> loadPage("load-magazines-view.fxml"));
-            logsButton.setOnAction(e -> loadPage("transactions-user-view.fxml"));
-            addBookButton.setOnAction(e -> loadPage("add-book-view.fxml"));
-            approveAllButton.setOnAction(e -> loadPage("approve-view.fxml"));
-            deleteBookButton.setOnAction(e -> loadPage("delete-book-view.fxml"));
-            logOutButton.setOnAction(e -> logOut());
-        }
-
-        public void loadPage(String pageName) {
-            try{
-                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(pageName));
-                Parent page = loader.load();
-
-                flowPaneForContent.getChildren().clear();
-                flowPaneForContent.getChildren().add(page);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        private void logOut() {
-            try {
-                // Set the username to null (or handle this as required)
-                UserSession.getInstance().setUsername("null");
-
-                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("login-user-view.fxml"));
-                Scene scene = new Scene(loader.load(), 480, 500);
-
-                Stage currentStage = (Stage)flowPaneForContent.getScene().getWindow();
-                Stage newStage = new Stage();
-                currentStage.setFullScreen(true);
-                newStage.setScene(scene);
-                newStage.show();
-
-                currentStage.close();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            flowPaneForContent.getChildren().clear();
+            flowPaneForContent.getChildren().add(page);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
+    /**
+     * Logs the user out by clearing the session and redirecting to the login page.
+     */
+    private void logOut() {
+        try {
+            // Set the username to null (or handle this as required)
+            UserSession.getInstance().setUsername("null");
+
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("login-user-view.fxml"));
+            Scene scene = new Scene(loader.load(), 480, 500);
+
+            Stage currentStage = (Stage) flowPaneForContent.getScene().getWindow();
+            Stage newStage = new Stage();
+            currentStage.setFullScreen(true);
+            newStage.setScene(scene);
+            newStage.show();
+
+            currentStage.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

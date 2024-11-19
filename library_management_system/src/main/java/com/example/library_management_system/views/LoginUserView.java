@@ -20,6 +20,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The {@code LoginUserView} class handles the login functionality for the users of the library management system.
+ * It allows users to log in using their username and password, and redirects them to the appropriate panel based on their role.
+ */
 public class LoginUserView {
 
     @FXML
@@ -35,36 +39,50 @@ public class LoginUserView {
     @FXML
     private Button registerButton;
 
+    /**
+     * Initializes the login view and sets the actions for the login and registration buttons.
+     * This method is automatically called when the FXML file is loaded.
+     */
     @FXML
     private void initialize() {
         loginButton.setOnAction(e -> handleLogin());
         registerButton.setOnAction(e -> handleRegisterRedirect());
-
     }
 
+    /**
+     * Handles the login process by validating user credentials.
+     * It authenticates the user and redirects them to the appropriate dashboard based on their role.
+     */
     @FXML
     public void handleLogin() {
         String username = usernameField.getText().trim();
         String password = passwordField.getText();
 
-
+        // Check if username or password are empty
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             displayErrorMessage("Username and password must not be empty!");
             return;
         }
 
+        // Authenticate the user
         String role = authenticateUser(username, password);
         if (role == null) {
             displayErrorMessage("Wrong username or password!");
         } else {
+            // Set the user session and redirect to the appropriate panel
             UserSession.getInstance().setUsername(username);
-
-
             redirectToAppropriatePanel(role);
         }
     }
 
-
+    /**
+     * Authenticates the user by checking the credentials against both the admins and patrons tables.
+     * If the user is found in the admins table, their role is returned; otherwise, it checks the patrons table.
+     *
+     * @param username The username entered by the user.
+     * @param password The password entered by the user.
+     * @return The role of the authenticated user ("ADMIN" or "PATRON"), or null if not found.
+     */
     private String authenticateUser(String username, String password) {
         // Query for admins
         String adminQuery = "SELECT role FROM admins WHERE username = ? AND password = ?";
@@ -98,7 +116,13 @@ public class LoginUserView {
         return null; // User not found in either table
     }
 
-
+    /**
+     * Redirects the user to the appropriate panel based on their role.
+     * If the user is a patron, they are redirected to the user dashboard.
+     * If the user is an admin, they are redirected to the admin panel.
+     *
+     * @param role The role of the authenticated user ("PATRON" or "ADMIN").
+     */
     private void redirectToAppropriatePanel(String role) {
         if ("PATRON".equalsIgnoreCase(role)) {
             redirectToUserDashboard();
@@ -107,44 +131,40 @@ public class LoginUserView {
         }
     }
 
+    /**
+     * Redirects the user to the user dashboard.
+     * This method loads the user dashboard FXML and sets it as the current scene.
+     */
     private void redirectToUserDashboard() {
         System.out.println("Redirecting to User Dashboard...");
         try {
-            // Load the registration FXML
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("dashboard-user-view.fxml"));
             Parent root = loader.load();
 
-            // Create a new scene and set it to the stage
             Scene scene = new Scene(root);
             Stage stage = (Stage) registerButton.getScene().getWindow();
             stage.setScene(scene);
-
-            // Optionally, set the title
-            stage.setTitle("Register User");
-
-            // Show the new stage
+            stage.setTitle("User Dashboard");
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Redirects the user to the admin panel.
+     * This method loads the admin panel FXML and sets it as the current scene.
+     */
     private void redirectToAdminPanel() {
         System.out.println("Redirecting to Admin Panel...");
         try {
-            // Load the registration FXML
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("admin-dashboard-view.fxml"));
             Parent root = loader.load();
 
-            // Create a new scene and set it to the stage
             Scene scene = new Scene(root);
             Stage stage = (Stage) registerButton.getScene().getWindow();
             stage.setScene(scene);
-
-            // Optionally, set the title
             stage.setTitle("Admin Panel");
-
-            // Show the new stage
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -152,32 +172,40 @@ public class LoginUserView {
         closeCurrentWindow();
     }
 
+    /**
+     * Closes the current login window.
+     * This method is called after the user has been successfully redirected to the appropriate panel.
+     */
     private void closeCurrentWindow() {
         Stage stage = (Stage) loginButton.getScene().getWindow();
-//        stage.close();
+        stage.close(); // Close the current login window
     }
 
+    /**
+     * Displays an error message on the screen.
+     * This method is used to show validation or authentication errors.
+     *
+     * @param message The error message to be displayed.
+     */
     private void displayErrorMessage(String message) {
         errorMessageLabel.setText(message);
         errorMessageLabel.setOpacity(1.0);
     }
 
+    /**
+     * Redirects the user to the registration view.
+     * This method is called when the user clicks the "Register" button.
+     */
     @FXML
     private void handleRegisterRedirect() {
         try {
-            // Load the registration FXML
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("register-user-view.fxml"));
             Parent root = loader.load();
 
-            // Create a new scene and set it to the stage
             Scene scene = new Scene(root);
             Stage stage = (Stage) registerButton.getScene().getWindow();
             stage.setScene(scene);
-
-            // Optionally, set the title
             stage.setTitle("Register User");
-
-            // Show the new stage
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

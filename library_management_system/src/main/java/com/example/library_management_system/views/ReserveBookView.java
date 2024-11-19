@@ -13,60 +13,71 @@ import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
 
+/**
+ * The {@code ReserveBookView} class handles the UI and functionality for reserving a book or resource.
+ * It validates input and interacts with the backend to reserve a resource for a patron.
+ */
 public class ReserveBookView {
+
     @FXML
-    private ComboBox<String> resourceTypeComboBox;;
+    private ComboBox<String> resourceTypeComboBox;
     @FXML
     private TextField resourceIdField;
     @FXML
     private TextField bookIdField;
-
     @FXML
     private TextField userIdField;
-
-
-
     @FXML
     private Button reserveButton;
-
     @FXML
     private Label statusLabel;
+
     private final String username = UserSession.getInstance().getUsername();
 
+    /**
+     * Initializes the reserve button's action.
+     */
     @FXML
     public void initialize() {
         reserveButton.setOnAction(event -> handleReserveBook());
     }
 
+    /**
+     * Handles the book/resource reservation process by validating input,
+     * checking if the patron exists, and calling the controller to reserve the resource.
+     */
     @FXML
     private void handleReserveBook() {
         String bookId = resourceIdField.getText();
         String userId = userIdField.getText();
-        String resourceType =resourceTypeComboBox.getValue();
-        if (bookId.isEmpty() || userId.isEmpty() || resourceType == null ) {
+        String resourceType = resourceTypeComboBox.getValue();
+
+
+        if (bookId.isEmpty() || userId.isEmpty() || resourceType == null) {
             statusLabel.setText("Please fill all fields.");
             statusLabel.setStyle("-fx-text-fill: red;");
             return;
         }
-        try{
-            PatronController patron = new PatronController();
+
+        try {
+
+            PatronController patronController = new PatronController();
+            PatronModel user = patronController.getById(Integer.parseInt(userId));
 
 
-            PatronModel user = new PatronModel();
-            user = patron.getById(Integer.parseInt(userId));
-            if (user == null){
+            if (user == null) {
                 throw new MySQLUserNotFound("Patron not found in the records.");
-            }else{
-                TransactionController reserve = new TransactionController();
-                reserve.reserveResource(user.getEmail(), Integer.parseInt(bookId), resourceType);
+            } else {
+
+                TransactionController transactionController = new TransactionController();
+                transactionController.reserveResource(user.getEmail(), Integer.parseInt(bookId), resourceType);
             }
         } catch (SQLException | MySQLUserNotFound e) {
             throw new RuntimeException(e);
         }
 
-
+        // Success message
         statusLabel.setText("Resource reserved successfully!");
         statusLabel.setStyle("-fx-text-fill: green;");
     }
-
 }

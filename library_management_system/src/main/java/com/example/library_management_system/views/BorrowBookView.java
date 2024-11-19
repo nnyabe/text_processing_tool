@@ -9,11 +9,13 @@ import javafx.scene.control.*;
 
 import java.sql.SQLException;
 
-public class BorrowBookView{
+public class BorrowBookView {
     @FXML
     private TextField resourceIdField;
+
     @FXML
-    private ComboBox<String> resourceTypeComboBox;;
+    private ComboBox<String> resourceTypeComboBox;
+
     @FXML
     private TextField bookIdField;
 
@@ -26,6 +28,9 @@ public class BorrowBookView{
     @FXML
     private Label statusLabel;
 
+    /**
+     * Initializes the view by setting the action for the borrow button.
+     */
     @FXML
     public void initialize() {
         borrowButton.setOnAction(event -> {
@@ -37,25 +42,32 @@ public class BorrowBookView{
         });
     }
 
+    /**
+     * Handles the borrowing process by validating input fields and performing the borrowing transaction.
+     *
+     * @throws MySQLUserNotFound if the patron is not found in the database.
+     */
     private void handleBorrowBook() throws MySQLUserNotFound {
         String bookId = resourceIdField.getText();
         String userId = userIdField.getText();
         String resourceType = resourceTypeComboBox.getValue();
-        if (bookId.isEmpty() || userId.isEmpty() || resourceType == null ) {
+
+        // Validate input fields
+        if (bookId.isEmpty() || userId.isEmpty() || resourceType == null) {
             statusLabel.setText("Please fill all fields.");
             statusLabel.setStyle("-fx-text-fill: red;");
             return;
         }
-        try{
+
+        try {
+            // Retrieve patron by userId
             PatronController patron = new PatronController();
+            PatronModel user = patron.getById(Integer.parseInt(userId));
 
-
-            PatronModel user = new PatronModel();
-            user = patron.getById(Integer.parseInt(userId));
-
-            if (user == null){
+            if (user == null) {
                 throw new MySQLUserNotFound("Patron not found in the records.");
-            }else{
+            } else {
+                // Borrow the resource
                 TransactionController borrow = new TransactionController();
                 borrow.borrowResource(user.getEmail(), Integer.parseInt(bookId), resourceType);
             }
@@ -63,7 +75,7 @@ public class BorrowBookView{
             throw new RuntimeException(e);
         }
 
-
+        // Update the status label on successful borrow
         statusLabel.setText("Book borrowed successfully!");
         statusLabel.setStyle("-fx-text-fill: green;");
     }
