@@ -1,18 +1,23 @@
 package com.example.library_management_system.modles;
 
 public class UserSession {
-    private static UserSession instance;
-    private String username;
+    private static UserSession instance;  // Singleton instance
+    private String username;  // Username for the current session
 
-    public UserSession() {
-    }
+    // Default constructor
+    public UserSession() {}
 
+    /**
+     * Returns the singleton instance of UserSession.
+     * If the instance doesn't exist, it is created.
+     */
     public static UserSession getInstance() {
         if (instance == null) {
             instance = new UserSession();
         }
         return instance;
     }
+
 
     public String getUsername() {
         return username;

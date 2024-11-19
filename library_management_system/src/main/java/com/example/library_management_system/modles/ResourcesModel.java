@@ -12,14 +12,20 @@ public abstract class ResourcesModel {
     private Date createdAt;
     private Date updatedAt;
 
-    public ResourcesModel( boolean availableState, String title, String publisher, int totalCopies,
+    /**
+     * Constructor without ID, with resource type (used for initialization).
+     */
+    public ResourcesModel(boolean availableState, String title, String publisher, int totalCopies,
                           int copiesLeft, String resourceType) {
         this(0, availableState, title, publisher, totalCopies, copiesLeft, new Date(), new Date());
-
     }
-    public ResourcesModel(int id,  boolean availableState, String title, String publisher, int totalCopies,
-                           int copiesLeft, Date createdAt, Date updatedAt) {
 
+    /**
+     * Full constructor with ID and timestamps.
+     */
+    public ResourcesModel(int id, boolean availableState, String title, String publisher, int totalCopies,
+                          int copiesLeft, Date createdAt, Date updatedAt) {
+        this.id = id;
         this.availableState = availableState;
         this.title = title;
         this.publisher = publisher;
@@ -29,6 +35,7 @@ public abstract class ResourcesModel {
         this.updatedAt = updatedAt;
     }
 
+    // Getters and setters
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -93,6 +100,9 @@ public abstract class ResourcesModel {
         this.copiesLeft = copiesLeft;
     }
 
+    /**
+     * String representation of the resource model.
+     */
     @Override
     public String toString(){
         return "\n{ id = "+ id +
@@ -103,7 +113,5 @@ public abstract class ResourcesModel {
                 ", copies_left = " + copiesLeft +
                 ", created_at = " + createdAt +
                 ", updated_at = " + updatedAt;
-
     }
-
 }

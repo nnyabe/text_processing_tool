@@ -7,13 +7,19 @@ public class MagazineModel extends ResourcesModel{
     private String issn;
     private int volume;
 
+    /**
+     * Constructor for creating a new magazine model.
+     */
     public MagazineModel(boolean availalbeState, String title,
                          String publisher, int totalCopies, int copiesLeft,
                          String editor, String issn, int volume){
         this(0, availalbeState, title, publisher, totalCopies, copiesLeft, editor,
                 issn, volume, new Date(), new Date());
-
     }
+
+    /**
+     * Full constructor for the magazine model.
+     */
     public MagazineModel(int id, boolean availalbeState, String title,
                          String publisher, int totalCopies, int copiesLeft,
                          String editor, String issn, int volume, Date createdAt, Date updatedAt) {
@@ -47,6 +53,9 @@ public class MagazineModel extends ResourcesModel{
         this.volume = volume;
     }
 
+    /**
+     * Returns a string representation of the magazine.
+     */
     @Override
     public String toString(){
         return super.toString() + ", editor = " + editor

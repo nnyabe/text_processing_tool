@@ -1,6 +1,7 @@
 package com.example.library_management_system.modles;
 
 import java.sql.Date;
+
 public class TransactionModel {
 
     private int id;
@@ -13,12 +14,19 @@ public class TransactionModel {
     private int resourceId;
     private String resourceType;
     private Enums.Types transactionType;
+
+    /**
+     * Constructor for creating a transaction request (borrow).
+     */
     public TransactionModel(String orderedBy, int resourceId, String resourceType){
         this(0, null, null, null, Enums.Stautus.PENDING, null,
                 orderedBy, resourceId, resourceType, Enums.Types.BORROW );
     }
 
-    public TransactionModel(int id,Date orderDate, Date approvedDate,
+    /**
+     * Full constructor for initializing a transaction with all details.
+     */
+    public TransactionModel(int id, Date orderDate, Date approvedDate,
                             Date returnDate, Enums.Stautus status,
                             String approvedBy, String orderedBy, int resourceId, String resourceType, Enums.Types transactionType) {
         this.id = id;
@@ -33,6 +41,7 @@ public class TransactionModel {
         this.transactionType = transactionType;
     }
 
+    // Getters and setters
     public int getId() {
         return id;
     }
@@ -113,6 +122,9 @@ public class TransactionModel {
         this.transactionType = transactionType;
     }
 
+    /**
+     * String representation of the transaction details.
+     */
     @Override
     public String toString() {
         return "Transaction{" +
