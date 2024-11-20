@@ -64,7 +64,7 @@ library-management-system/
 │                   ├── models/               # Contains the model classes for Books, Patrons, etc.
 │                   ├── views/                # Contains the JavaFX views (UI components like BookView, PatronView, etc.)
 │                   ├── utils/                # Contains utility classes like DatabaseConnection
-│                   └── Main.java             # Entry point for the application
+│                   └── HelloApplication.java             # Entry point for the application
 ├── resources/
 │   ├── com.example.library_management_system/                 # Contains all the FXML files for the views
 │       ├── add-book-view.fxml     # FXML for the book management view
@@ -72,7 +72,7 @@ library-management-system/
 │       ├── transactions-user-view.fxml  # FXML for the transaction management view
 │       ├── admin-dashboard-view.fxml  # FXML for the admin dashboard
 │       └── load-books-view.fxml   # FXML for the search functionality view on books)
-├── pom.xml / build.gradle    # Dependency management file for Maven/Gradle
+├── pom.xml    # Dependency management file for Maven/Gradle
 └── README.md                 # Documentation
 ``````
 
