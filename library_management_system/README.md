@@ -33,9 +33,9 @@ The **Advanced Library Management System** is a fully-fledged Java-based applica
 
 - **Java 21 (LTS)**: Used for the core logic and object-oriented implementation.
 - **JavaFX**: For building the graphical user interface (GUI).
-- **MySQL/PostgreSQL**: Relational database management system (RDBMS) used for storing library data.
+- **MySQL**: Relational database management system (RDBMS) used for storing library data.
 - **JDBC**: For database connectivity and interaction.
-- **Maven/Gradle** (optional): For managing project dependencies and builds.
+- **Maven**: For managing project dependencies and builds.
 
 ## Setup Instructions
 
