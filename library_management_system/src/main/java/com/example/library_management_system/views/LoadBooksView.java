@@ -5,12 +5,16 @@ import com.example.library_management_system.modles.BookModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Stack;
+import java.util.stream.Collectors;
 
 /**
  * The {@code LoadBooksView} class represents the view for displaying the list of books in the system.
@@ -18,6 +22,10 @@ import java.util.List;
  */
 public class LoadBooksView {
 
+    @FXML
+    private TextField searchTextField;
+    @FXML
+    private Button searchButton;
     @FXML
     private TableView<BookModel> bookTableView;
 
@@ -45,6 +53,8 @@ public class LoadBooksView {
     @FXML
     private TableColumn<BookModel, Integer> editionColumn;
 
+    private List<BookModel> bookList;
+
     /**
      * Initializes the view by setting up the table columns and loading the book data into the {@code TableView}.
      * This method is automatically called by the FXMLLoader when the view is created.
@@ -53,6 +63,8 @@ public class LoadBooksView {
     public void initialize() {
         setUpTableColumns();
         loadBookData();
+
+        searchButton.setOnAction(e-> handleSearch());
     }
 
     /**
@@ -76,12 +88,31 @@ public class LoadBooksView {
      */
     private void loadBookData() {
         try {
-            List<BookModel> bookList = new BookController().getAll();
-            ObservableList<BookModel> books = FXCollections.observableArrayList();
-            books.addAll(bookList);
+            bookList = new BookController().getAll();
+
+            ObservableList<BookModel> books = FXCollections.observableArrayList(bookList);
             bookTableView.setItems(books);
         } catch (SQLException e) {
             throw new RuntimeException("Error loading book data", e);
         }
     }
+
+    /**
+     * Handles the search functionality for books based on the user's input.
+     * It filters the book list by title and updates the table view with the filtered results.
+     *
+     * <p>The search is case-insensitive and matches books whose titles contain the search text.</p>
+     *
+     * <p>Note: This method assumes that the {@code bookList} has been previously initialized
+     * and contains all the available book data.</p>
+     */
+    private void handleSearch() {
+        String searchText = searchTextField.getText();
+        List<BookModel> filteredBooks = bookList.stream()
+                .filter(book -> book.getTitle().toLowerCase().contains(searchText))
+                .collect(Collectors.toList());
+        ObservableList<BookModel> books = FXCollections.observableArrayList(filteredBooks);
+        bookTableView.setItems(books);
+    }
+
 }

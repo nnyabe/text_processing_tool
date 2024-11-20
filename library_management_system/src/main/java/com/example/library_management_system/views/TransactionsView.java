@@ -114,21 +114,6 @@ public class TransactionsView {
     }
 
     /**
-     * Cancels a transaction and updates the table accordingly.
-     *
-     * @param transaction The transaction to be canceled.
-     * @throws SQLException if an error occurs while canceling the transaction.
-     */
-    private void cancelTransaction(TransactionModel transaction) throws SQLException {
-        if (transactionController.deleteById(transaction.getId())) {
-            transactions.remove(transaction); // Remove the canceled transaction from the table
-            showSuccess("Transaction Canceled", "The transaction has been successfully canceled.");
-        } else {
-            showError("Cancellation Failed", "The transaction could not be canceled.");
-        }
-    }
-
-    /**
      * Displays an error message in the console (can be replaced with a JavaFX alert in production).
      *
      * @param title   The title of the error message.

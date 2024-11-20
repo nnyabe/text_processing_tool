@@ -5,7 +5,9 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="486.0" prefWidth="947.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.library_management_system.views.LoadMagazinesView">
-    <TableView fx:id="magazineTableView" layoutX="77.0" layoutY="169.0" prefHeight="462.0" prefWidth="934.0">
+    <TextField fx:id="searchTextField" layoutX="279.0" layoutY="25.0" prefHeight="36.0" prefWidth="319.0" promptText="Search magazines Here" />
+    <Button fx:id="searchButton" layoutX="624.0" layoutY="25.0" style="-fx-background-color: #3D3BF3; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 5; -fx-pref-width: 100; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 2, 2);" text="Search" />
+    <TableView fx:id="magazineTableView" layoutX="77.0" layoutY="103.0" prefHeight="528.0" prefWidth="934.0">
         <columns>
             <TableColumn fx:id="titleColumn" prefWidth="150" text="Title">
                 <cellValueFactory>

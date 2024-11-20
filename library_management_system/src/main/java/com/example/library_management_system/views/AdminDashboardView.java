@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 public class AdminDashboardView {
 
     @FXML
-    private Button deleteBookButton, addBookButton, approveAllButton, booksButton, magazinesButton, reservationButton, borrowButton, logsButton, logOutButton;
+    private Button deleteBookButton, addBookButton, approveAllButton, booksButton, magazinesButton, reservationButton, borrowButton, logOutButton;
 
     @FXML
     private FlowPane flowPaneForContent;
@@ -30,7 +30,7 @@ public class AdminDashboardView {
     public void initialize() {
         booksButton.setOnAction(e -> loadPage("load-books-view.fxml"));
         magazinesButton.setOnAction(e -> loadPage("load-magazines-view.fxml"));
-        logsButton.setOnAction(e -> loadPage("transactions-user-view.fxml"));
+//        logsButton.setOnAction(e -> loadPage("transactions-user-view.fxml"));
         addBookButton.setOnAction(e -> loadPage("add-book-view.fxml"));
         approveAllButton.setOnAction(e -> loadPage("approve-view.fxml"));
         deleteBookButton.setOnAction(e -> loadPage("delete-book-view.fxml"));

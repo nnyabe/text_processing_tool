@@ -76,7 +76,6 @@ public class ReserveBookView {
             throw new RuntimeException(e);
         }
 
-        // Success message
         statusLabel.setText("Resource reserved successfully!");
         statusLabel.setStyle("-fx-text-fill: green;");
     }

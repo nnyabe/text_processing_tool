@@ -178,7 +178,7 @@ public class LoginUserView {
      */
     private void closeCurrentWindow() {
         Stage stage = (Stage) loginButton.getScene().getWindow();
-        stage.close(); // Close the current login window
+//        stage.close();
     }
 
     /**

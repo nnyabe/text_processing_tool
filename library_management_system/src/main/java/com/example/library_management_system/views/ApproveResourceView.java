@@ -18,7 +18,9 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class ApproveResourceView {
 
@@ -50,7 +52,7 @@ public class ApproveResourceView {
     private Button refreshButton;
 
     private final ObservableList<TransactionModel> transactionList = FXCollections.observableArrayList();
-
+    private Queue<TransactionModel> transactionQueue = new LinkedList<>();
     /**
      * Initializes the table view and action buttons, binds data to table columns.
      *
@@ -117,9 +119,17 @@ public class ApproveResourceView {
             }
         });
 
-        List<TransactionModel> transaction = new TransactionController().getAll();
-        transactionList.clear();
-        transactionList.addAll(transaction);
+        transactionQueue = new LinkedList<>(new TransactionController().getAll());
+
+        Queue<TransactionModel> updatedQueue = new LinkedList<>();
+
+        while (!transactionQueue.isEmpty()) {
+            TransactionModel transaction = transactionQueue.poll();
+            if (!"RETURNED".equals(transaction.getStatus())) {
+                updatedQueue.add(transaction);
+            }
+        }
+        ObservableList<TransactionModel> transactionList = FXCollections.observableArrayList(updatedQueue);
         transactionsTable.setItems(transactionList);
     }
 
@@ -161,19 +171,24 @@ public class ApproveResourceView {
         new TransactionController().returnResource(transaction.getId());
     }
 
-    /**
-     * Refreshes the transaction table by reloading the transaction data.
-     *
-     * @throws SQLException if database interaction fails.
-     */
     @FXML
     public void handleRefresh() throws SQLException {
-        List<TransactionModel> transaction = new TransactionController().getAll();
-        transactionList.clear();
-        transactionList.addAll(transaction);
+        transactionQueue = new LinkedList<>(new TransactionController().getAll());
 
+        Queue<TransactionModel> updatedQueue = new LinkedList<>();
+
+        while (!transactionQueue.isEmpty()) {
+            TransactionModel transaction = transactionQueue.poll();
+            if (!"RETURNED".equals(transaction.getStatus())) {
+                updatedQueue.add(transaction);
+            }
+        }
+        ObservableList<TransactionModel> transactionList = FXCollections.observableArrayList(updatedQueue);
         transactionsTable.setItems(transactionList);
+
         transactionsTable.refresh();
+
         statusLabel.setText("Table Refreshed");
     }
+
 }
