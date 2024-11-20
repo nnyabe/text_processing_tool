@@ -22,7 +22,8 @@ public class AdminModel extends UserModel {
      * @param role the role of the admin (e.g., SUPER_ADMIN, ADMIN)
      * @param password the password associated with the admin account
      */
-    public AdminModel(int id, String username, String email, Date created_at, Date updated_at,
+    public AdminModel(int id, String username, String email,
+                      Date created_at, Date updated_at,
                       Enums.Roles role, String password) {
         super(id, username, email, created_at, updated_at);
         this.password = password;

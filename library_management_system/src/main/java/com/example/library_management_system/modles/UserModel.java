@@ -15,7 +15,9 @@ public abstract class UserModel {
     /**
      * Constructor to initialize user details.
      */
-    public UserModel(int id, String username, String email, Date created_at, Date updated_at) {
+    public UserModel(int id, String username,
+                     String email, Date created_at,
+                     Date updated_at) {
         this.id = id;
         this.username = username;
         this.email = email;

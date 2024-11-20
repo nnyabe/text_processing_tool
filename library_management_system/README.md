@@ -72,7 +72,7 @@ library-management-system/
 │       ├── transactions-user-view.fxml  # FXML for the transaction management view
 │       ├── admin-dashboard-view.fxml  # FXML for the admin dashboard
 │       └── load-books-view.fxml   # FXML for the search functionality view on books)
-├── pom.xml    # Dependency management file for Maven/Gradle
+├── pom.xml    # Dependency management file for Maven
 └── README.md                 # Documentation
 ``````
 

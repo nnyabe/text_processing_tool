@@ -19,7 +19,9 @@ public class PatronModel extends UserModel{
     /**
      * Full constructor for the patron model with ID and timestamps.
      */
-    public PatronModel(int id, String username, String email, Date created_at, Date updated_at) {
+    public PatronModel(int id, String username,
+                       String email, Date created_at,
+                       Date updated_at) {
         super(id, username, email, created_at, updated_at);
     }
 }
