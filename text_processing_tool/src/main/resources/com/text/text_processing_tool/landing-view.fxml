@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="842.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<!--            fx:controller="com.text.text_processing_tool.controllers.LandingView">-->
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1212.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="70.0" prefWidth="303.0" text="Kull Text">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+         </children></HBox>
+      <VBox alignment="CENTER" layoutX="77.0" layoutY="114.0" prefHeight="632.0" prefWidth="528.0" AnchorPane.leftAnchor="77.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="351.0" prefWidth="528.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="160.0" prefWidth="528.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="528.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <TextFlow prefHeight="123.0" prefWidth="410.0">
+                                 <children>
+                                    <Label text="Original Text">
+                                       <font>
+                                          <Font name="System Bold" size="36.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="2.0" left="10.0" right="8.0" top="16.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label layoutX="10.0" layoutY="10.0" prefHeight="39.0" prefWidth="407.0" text="Please paste your text below for analysis">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="8.0" left="8.0" right="8.0" top="4.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </TextFlow>
+                              <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="146.0" style="-fx-background-color: #626ae7;" text="import" textAlignment="CENTER" textFill="#e6e6e6">
+                                 <HBox.margin>
+                                    <Insets right="4.0" top="10.0" />
+                                 </HBox.margin>
+                                 <padding>
+                                    <Insets bottom="8.0" left="16.0" right="28.0" top="8.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@mycollection/png/002-download.png" />
+                                       </image></ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets left="8.0" />
+                           </padding>
+                        </HBox>
+                        <TextArea prefHeight="109.0" prefWidth="508.0" promptText="input text" wrapText="true">
+                           <VBox.margin>
+                              <Insets bottom="8.0" left="12.0" right="8.0" top="8.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </padding>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextArea>
+                     </children></VBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="83.0" prefWidth="360.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Button mnemonicParsing="false" style="-fx-background-color: #626ae7;" text="Analyze" textFill="#e6e6e6">
+                           <padding>
+                              <Insets bottom="8.0" left="18.0" right="28.0" top="8.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets left="12.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@mycollection/png/001-analyze.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label text="The processed text will appear here.">
+                           <VBox.margin>
+                              <Insets left="12.0" top="12.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children></VBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="360.0">
+                     <children>
+                        <Label text="Processed Result" textAlignment="JUSTIFY">
+                           <font>
+                              <Font name="System Bold" size="36.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </padding>
+                        </Label>
+                        <Label contentDisplay="CENTER" text="Word count :">
+                           <HBox.margin>
+                              <Insets left="80.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label text="812">
+                           <HBox.margin>
+                              <Insets left="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                     </padding>
+                  </HBox>
+                  <TextArea prefHeight="145.0" prefWidth="268.0" promptText="This area will display the processed text with modifications applied.">
+                     <VBox.margin>
+                        <Insets bottom="4.0" left="12.0" right="4.0" top="4.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextArea>
+               </children></VBox>
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="699.0" layoutY="128.0" prefHeight="737.0" prefWidth="521.0" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="669.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="48.0">
+         <children>
+            <VBox alignment="CENTER_LEFT" prefHeight="104.0" prefWidth="236.0" VBox.vgrow="NEVER">
+               <children>
+                  <Label text="Find and Replace">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="236.0">
+                     <children>
+                        <TextField prefHeight="42.0" prefWidth="285.0" promptText="Find" style="-fx-background-color: #ffff; -fx-background-radius: 4; -fx-border-color: #efee;">
+                           <font>
+                              <Font size="18.0" />
+                           </font></TextField>
+                        <ComboBox prefHeight="35.0" prefWidth="120.0" promptText="Quantity" style="-fx-background-color: #ffff; -fx-background-radius: 1;" visibleRowCount="18">
+                           <HBox.margin>
+                              <Insets left="4.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="14.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="37.0" prefHeight="37.0" prefWidth="236.0">
+                     <children>
+                        <TextField prefHeight="42.0" prefWidth="287.0" promptText="Replace with" style="-fx-background-color: #ffff; -fx-background-radius: 4; -fx-border-color: #efee;">
+                           <font>
+                              <Font size="18.0" />
+                           </font></TextField>
+                        <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="137.0" style="-fx-background-color: #626ae7;" text="Replace" textFill="#e6e6e6">
+                           <padding>
+                              <Insets bottom="8.0" left="18.0" right="28.0" top="8.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets left="8.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@mycollection/change.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="123.0" prefWidth="427.0" style="-fx-background-color: #fffff; -fx-background-radius: 4; -fx-border-color: #efee;" VBox.vgrow="NEVER">
+               <children>
+                  <Label text="Search">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT" layoutX="11.0" layoutY="39.0" prefHeight="37.0" prefWidth="236.0">
+                     <children>
+                        <TextField prefHeight="42.0" prefWidth="296.0" promptText="Search" style="-fx-background-color: #ffff; -fx-background-radius: 4; -fx-border-color: #efee;">
+                           <font>
+                              <Font size="18.0" />
+                           </font></TextField>
+                        <Button mnemonicParsing="false" style="-fx-background-color: #626ae7;" text="Search" textFill="#e6e6e6">
+                           <padding>
+                              <Insets bottom="8.0" left="28.0" right="28.0" top="8.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets left="4.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@mycollection/png/003-location.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin></VBox>
+            <VBox prefHeight="186.0" prefWidth="463.0" VBox.vgrow="SOMETIMES">
+               <children>
+                  <Label text="Pattern Search">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="236.0">
+                     <children>
+                        <TextField prefHeight="42.0" prefWidth="303.0" promptText="input pattern" style="-fx-background-color: #ffff; -fx-background-radius: 4; -fx-border-color: #efee;">
+                           <font>
+                              <Font size="18.0" />
+                           </font></TextField>
+                        <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="130.0" style="-fx-background-color: #626ae7;" text="Search" textFill="#e6e6e6">
+                           <padding>
+                              <Insets bottom="8.0" left="16.0" right="28.0" top="8.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets left="4.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@mycollection/png/003-location.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children></VBox>
+         </children>
+         <padding>
+            <Insets bottom="8.0" left="20.0" right="8.0" top="8.0" />
+         </padding></VBox>
+   </children>
+   <padding>
+      <Insets bottom="40.0" left="30.0" top="80.0" />
+   </padding>
+</AnchorPane>
