@@ -1,6 +1,7 @@
 package com.text.text_processing_tool.service;
 
 import com.text.text_processing_tool.models.TextProcessor;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,14 +17,23 @@ public class TextService implements TextProcessor {
         return count;
     }
 
+    public  int countAll(String text){
+        int count = 0;
+        count = (int) Arrays.stream(text.split("\\s+")).count();
+
+        return count;
+    }
+
     @Override
     public String replaceText(String text, String findWord, String replaceWord) {
-        return text.replaceFirst(findWord, replaceWord);
+        String word = "\\b" + Pattern.quote(findWord) + "\\b";
+        return text.replaceFirst(word, replaceWord);
     }
 
     @Override
     public String replaceAllText(String text, String findWord, String replaceWord) {
-        return text.replace(findWord, replaceWord);
+        String word = "\\b" +  Pattern.quote(findWord) + "\\b";
+        return text.replace(word, replaceWord);
     }
 
     @Override

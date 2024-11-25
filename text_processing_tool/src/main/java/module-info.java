@@ -19,4 +19,6 @@ module com.text.text_processing_tool {
     opens com.text.text_processing_tool.service to javafx.fxml;
     exports com.text.text_processing_tool.models;
     opens com.text.text_processing_tool.models to javafx.fxml;
+    exports com.text.text_processing_tool.views to javafx.fmxl;
+    opens com.text.text_processing_tool.views to javafx.fxml;
 }
