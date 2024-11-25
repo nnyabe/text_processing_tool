@@ -1,4 +1,4 @@
-package com.text.text_processing_tool.services;
+package com.text.text_processing_tool.service;
 
 import com.text.text_processing_tool.models.TextProcessor;
 
