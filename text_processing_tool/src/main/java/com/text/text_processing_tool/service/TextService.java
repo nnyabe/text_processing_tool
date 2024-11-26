@@ -26,13 +26,13 @@ public class TextService implements TextProcessor {
 
     @Override
     public String replaceText(String text, String findWord, String replaceWord) {
-        String word = "\\b" + Pattern.quote(findWord) + "\\b";
+        String word = "\\b" + findWord + "\\b";
         return text.replaceFirst(word, replaceWord);
     }
 
     @Override
     public String replaceAllText(String text, String findWord, String replaceWord) {
-        String word = "\\b" +  Pattern.quote(findWord) + "\\b";
+        String word = "\\b" +  findWord + "\\b";
         return text.replace(word, replaceWord);
     }
 

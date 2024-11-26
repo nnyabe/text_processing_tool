@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 public class RegexService implements RegexProcessor {
     /**
@@ -14,7 +15,7 @@ public class RegexService implements RegexProcessor {
      * @return
      */
     @Override
-    public boolean hasMatch(String text, String regex) {
+    public boolean hasMatch(String text, String regex) throws PatternSyntaxException {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(text);
         return matcher.find();
