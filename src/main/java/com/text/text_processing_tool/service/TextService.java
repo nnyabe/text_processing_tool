@@ -9,6 +9,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Provides methods for working with text, including matching,
+ * counting, and replacing words in a given text.
+ * Implements the {@link TextProcessor} interface.
+ */
 public class TextService implements TextProcessor {
     @Override
     public int countOccurrences(String text, String word) {

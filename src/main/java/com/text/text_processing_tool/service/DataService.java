@@ -2,7 +2,11 @@ package com.text.text_processing_tool.service;
 
 import com.text.text_processing_tool.models.DataManager;
 import com.text.text_processing_tool.utils.AlertManager;
-
+/**
+ * Provides methods to update and delete records in the data store.
+ * Extends {@link DataManager} and implements the abstract methods
+ * for managing data.
+ */
 public class DataService extends DataManager {
 
 

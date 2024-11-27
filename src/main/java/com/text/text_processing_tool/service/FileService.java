@@ -8,10 +8,12 @@ import javafx.stage.Stage;
 
 import java.io.*;
 
+/**
+ * Provides methods for importing and saving text files.
+ * Implements the {@link FileManager} interface to handle file operations.
+ */
 public class FileService implements FileManager {
-    /**
-     * 
-     */
+
     @Override
     public String importFile() throws FileNotFoundException {
         Stage primaryStage = StageManager.getPrimaryStage();
@@ -44,9 +46,7 @@ public class FileService implements FileManager {
         return content.toString();
     }
 
-    /**
-     * 
-     */
+
     @Override
     public void saveTextToFile(File file, String text) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
@@ -57,9 +57,7 @@ public class FileService implements FileManager {
         }
     }
 
-    /**
-     * 
-     */
+
     @Override
     public void saveFileAs() {
         Stage primaryStage = StageManager.getPrimaryStage();

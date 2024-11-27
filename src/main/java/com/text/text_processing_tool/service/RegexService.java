@@ -8,12 +8,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+
+/**
+ * Provides methods for working with regular expressions, including matching,
+ * counting, and replacing patterns in a given text.
+ * Implements the {@link RegexProcessor} interface.
+ */
 public class RegexService implements RegexProcessor {
-    /**
-     * @param text 
-     * @param regex
-     * @return
-     */
+
     @Override
     public boolean hasMatch(String text, String regex) throws PatternSyntaxException {
         Pattern pattern = Pattern.compile(regex);
@@ -21,11 +23,7 @@ public class RegexService implements RegexProcessor {
         return matcher.find();
     }
 
-    /**
-     * @param text 
-     * @param regex
-     * @return
-     */
+
     @Override
     public int countMatches(String text, String regex) {
         int count = 0;
@@ -38,33 +36,19 @@ public class RegexService implements RegexProcessor {
         return count;
     }
 
-    /**
-     * @param text 
-     * @param regex
-     * @param replaceWord
-     * @return
-     */
+
     @Override
     public String replaceText(String text, String regex, String replaceWord) {
         return text.replaceFirst(regex, replaceWord);
     }
 
-    /**
-     * @param text 
-     * @param regex
-     * @param replaceWord
-     * @return
-     */
+
     @Override
     public String replaceAllMatches(String text, String regex, String replaceWord) {
         return text.replaceAll(regex, replaceWord);
     }
 
-    /**
-     * @param text 
-     * @param regex
-     * @return
-     */
+
     @Override
     public List<String> findRegexMatches(String text, String regex) {
         List<String> matches = new ArrayList<>();

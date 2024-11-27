@@ -6,7 +6,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
-
+/**
+ * Provides methods for displaying different types of alerts and dialog boxes to the user.
+ * Includes methods for information, warnings, errors, user inputs, and custom actions for bookmarks.
+ */
 public class AlertManager {
     public void showAlert(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
