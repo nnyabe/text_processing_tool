@@ -1,5 +1,6 @@
 package com.text.text_processing_tool.service;
 
+import com.text.text_processing_tool.models.RegexProcessor;
 import com.text.text_processing_tool.models.TextProcessor;
 import org.w3c.dom.Text;
 
@@ -9,6 +10,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+/**
+ * Provides methods for working with text, including matching,
+ * counting, and replacing words in a given text.
+ * Implements the {@link TextProcessor} interface.
+ */
 public class TextService implements TextProcessor {
     @Override
     public int countOccurrences(String text, String word) {

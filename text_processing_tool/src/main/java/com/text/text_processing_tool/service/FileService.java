@@ -8,6 +8,10 @@ import javafx.stage.Stage;
 
 import java.io.*;
 
+/**
+ * Provides methods for importing and saving text files.
+ * Implements the {@link FileManager} interface to handle file operations.
+ */
 public class FileService implements FileManager {
     /**
      * 
